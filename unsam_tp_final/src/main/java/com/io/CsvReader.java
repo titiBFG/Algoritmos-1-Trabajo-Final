@@ -22,7 +22,7 @@ public class CsvReader {
             Map<Integer, RowView> rows = new HashMap<>();
             List<Column> columns = new ArrayList<>();
             // 
-            Map<String, DataType> columnTypes = new HashMap<>();
+            Map<String /*label*/, DataType> columnTypes = new HashMap<>();
 
             // Read the header
             if ((line = br.readLine()) != null) {
@@ -32,16 +32,18 @@ public class CsvReader {
                 }
             }
 
-            // Read the data
+            // Lectura de la informacion
             int rowIndex = 0;
             while ((line = br.readLine()) != null) {
                 String[] dataArray = line.split(",");
                 List<Object> values = new ArrayList<>();
                 for (int i = 0; i < dataArray.length; i++) {
                     values.add(dataArray[i]);
+                    /*
                     if (i >= columns.size()) {
-                        columns.add(new Column(headers.get(i), DataType.STRING)); // Default type
-                    }
+                        columns.add(new Column(headers.get(i) ó "NotDefined", DataType.STRING)); // Default type
+                    } 
+                    */
                 }
                 rows.put(rowIndex++, new RowView(rowIndex, values));
             }

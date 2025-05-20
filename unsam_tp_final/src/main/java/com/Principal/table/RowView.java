@@ -2,7 +2,7 @@
 package table;
 
 import java.util.List;
-import java.util.Map;
+import java.util.Map; 
 
 public class RowView {
 
@@ -14,9 +14,4 @@ public class RowView {
         this.values = values;
     }
 
-    public Object getValue(colLabel: String) {
-        
-    }
-
-    public 
 }

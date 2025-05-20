@@ -12,8 +12,12 @@ public class validator {
     }
     // 2) Si no es NA, validá contra el tipo esperado
     switch (type) {
-        case NUMERIC:
-            return value instanceof Number;
+        case INT:
+            return value instanceof Integer;
+        case DOUBLE:
+            return value instanceof Double;
+        case FLOAT:
+            return value instanceof Float;
         case STRING:
             return value instanceof String;
         case BOOLEAN:
