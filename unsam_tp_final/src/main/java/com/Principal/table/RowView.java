@@ -1,17 +1,23 @@
 // RowView.java - clase o interfaz de core
-package table;
+package Principal.table;
 
-import java.util.List;
 import java.util.Map; 
 
 public class RowView {
 
     private int index;
-    private List<Object> values;
+    private Map<String, Object> values;
 
-    public RowView(int index, List<Object> values) {
+    public RowView(int index, Map<String, Object> values) {
         this.index = index;
         this.values = values;
     }
 
+    public int getIndex() {
+        return index;
+    }
+
+    public Map<String, Object> getValues() {
+        return values;
+    }
 }

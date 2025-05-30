@@ -1,7 +1,7 @@
 // Column.java - clase o interfaz de core
-package table;
+package Principal.table;
 
-import enums.DataType;
+import Utils.enums.DataType;
 
 public class Column {
 
@@ -11,6 +11,10 @@ public class Column {
     public Column(String label, DataType type) {
         this.label = label;
         this.type = type;
+    }
+
+    public String getLabel() {
+        return label;
     }
 
     public DataType getType() {

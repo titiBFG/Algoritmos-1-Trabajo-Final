@@ -1,7 +1,7 @@
-package validation;
+package Utils.validation;
 
 import javax.print.attribute.standard.MediaSize.NA;
-import enums.DataType;
+import Utils.enums.DataType;
 
 public class validator {
     

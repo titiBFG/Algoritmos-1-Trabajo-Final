@@ -1,4 +1,4 @@
-package enums;
+package Utils.enums;
 
 // DataType.java - clase o interfaz de utils
 import java.util.function.Function;

@@ -1,3 +1,5 @@
+package IO;
+
 // CsvReader.java - clase o interfaz de io
 
 import java.io.BufferedReader;
@@ -8,10 +10,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.HashMap;
 
-import table.DataTable;
-import table.RowView;
-import table.Column;
-import enums.DataType;
+import Principal.table.DataTable;
+import Principal.table.RowView;
+import Principal.table.Column;
+import Utils.enums.DataType;
 
 public class CsvReader {
 
@@ -20,7 +22,7 @@ public class CsvReader {
             String line;
             List<String> headers = new ArrayList<>();
             Map<Integer, RowView> rows = new HashMap<>();
-            List<Column> columns = new ArrayList<>();
+            Map<String, Column> columns = new HashMap<>();
             // 
             Map<String /*label*/, DataType> columnTypes = new HashMap<>();
 
@@ -36,9 +38,9 @@ public class CsvReader {
             int rowIndex = 0;
             while ((line = br.readLine()) != null) {
                 String[] dataArray = line.split(",");
-                List<Object> values = new ArrayList<>();
+                Map<String, Object> values = new HashMap<>();
                 for (int i = 0; i < dataArray.length; i++) {
-                    values.add(dataArray[i]);
+                    values.put(headers.get(i), dataArray[i]);
                     /*
                     if (i >= columns.size()) {
                         columns.add(new Column(headers.get(i) ó "NotDefined", DataType.STRING)); // Default type
