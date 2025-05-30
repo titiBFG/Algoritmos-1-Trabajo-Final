@@ -17,20 +17,22 @@ import Utils.enums.DataType;
 
 public class CsvReader {
 
-    public DataTable read(String filePath) {
+    public static DataTable read(String filePath) {
         try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
             String line;
             List<String> headers = new ArrayList<>();
             Map<Integer, RowView> rows = new HashMap<>();
             Map<String, Column> columns = new HashMap<>();
             // 
-            Map<String /*label*/, DataType> columnTypes = new HashMap<>();
+            Map<String, DataType> columnTypes = new HashMap<>();
 
             // Read the header
             if ((line = br.readLine()) != null) {
                 String[] headerArray = line.split(",");
                 for (String header : headerArray) {
                     headers.add(header);
+                    columns.put(header, new Column(header, DataType.STRING)); // Default type
+                    columnTypes.put(header, DataType.STRING); // Default type
                 }
             }
 
