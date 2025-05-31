@@ -2,6 +2,8 @@
 
 package Principal.table;
 
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import Utils.enums.DataType;
@@ -12,10 +14,10 @@ public class DataTable {
     private Map<String, Column> columns;
     private Map<String, DataType> columnTypes;
 
-    public DataTable(Map<Integer, RowView> rows, Map<String, Column> columns, Map<String, DataType> columnTypes) {
-        this.rows = rows;
-        this.columns = columns;
-        this.columnTypes = columnTypes;
+    public DataTable() {
+        this.rows = new HashMap<>();
+        this.columns = new HashMap<>();
+        this.columnTypes = new HashMap<>();
     }
 
     public void showRowCount() {
@@ -36,5 +38,26 @@ public class DataTable {
         // Agarro el objeto RowView de indice "row" y le extraigo el objeto de key "col"
         Map<String, Object>  r = rows.get(row).getValues();
         return r.get(col);
+    }
+
+    public void addColumn(String trim, DataType dataType) {
+        // Agrego una nueva columna al DataTable
+        Column column = new Column(dataType);
+        columns.put(trim, column);
+        columnTypes.put(trim, dataType);
+    }
+
+    public void addRow(List<Object> fila) {
+        // Agrego una nueva fila al DataTable
+        Map<String, Object> rowValues = new HashMap<>();
+        int rowIndex = rows.size();
+        rowIndex++;
+        columns.forEach((name, column) -> {
+            int i = 0;
+            rowValues.put(name, fila.get(i));
+            i++;
+        });
+        RowView rowView = new RowView(rowValues);
+        rows.put(rowIndex, rowView);
     }
 }

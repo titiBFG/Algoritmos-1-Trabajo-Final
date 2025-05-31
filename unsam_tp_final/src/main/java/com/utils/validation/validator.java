@@ -12,7 +12,7 @@ public class validator {
     }
     // 2) Si no es NA, validá contra el tipo esperado
     switch (type) {
-        case INT:
+        case INTEGER:
             return value instanceof Integer;
         case DOUBLE:
             return value instanceof Double;

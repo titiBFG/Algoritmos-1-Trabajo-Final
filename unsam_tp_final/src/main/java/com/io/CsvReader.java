@@ -7,55 +7,96 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import java.util.HashMap;
+import java.util.regex.Pattern;
 
 import Principal.table.DataTable;
-import Principal.table.RowView;
-import Principal.table.Column;
 import Utils.enums.DataType;
+import interfaces.TableReader;
 
-public class CsvReader {
+public class CsvReader implements TableReader {
 
-    public static DataTable read(String filePath) {
-        try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
-            String line;
-            List<String> headers = new ArrayList<>();
-            Map<Integer, RowView> rows = new HashMap<>();
-            Map<String, Column> columns = new HashMap<>();
-            // 
-            Map<String, DataType> columnTypes = new HashMap<>();
-
-            // Read the header
-            if ((line = br.readLine()) != null) {
-                String[] headerArray = line.split(",");
-                for (String header : headerArray) {
-                    headers.add(header);
-                    columns.put(header, new Column(header, DataType.STRING)); // Default type
-                    columnTypes.put(header, DataType.STRING); // Default type
-                }
-            }
-
-            // Lectura de la informacion
-            int rowIndex = 0;
-            while ((line = br.readLine()) != null) {
-                String[] dataArray = line.split(",");
-                Map<String, Object> values = new HashMap<>();
-                for (int i = 0; i < dataArray.length; i++) {
-                    values.put(headers.get(i), dataArray[i]);
-                    /*
-                    if (i >= columns.size()) {
-                        columns.add(new Column(headers.get(i) ó "NotDefined", DataType.STRING)); // Default type
-                    } 
-                    */
-                }
-                rows.put(rowIndex++, new RowView(rowIndex, values));
-            }
-
-            return new DataTable(rows, columns, columnTypes);
-        } catch (IOException e) {
-            e.printStackTrace();
+    @Override
+    public DataTable read(String filePath, String delimiter, boolean hasHeaders) throws IOException {
+        if (filePath == null || filePath.isEmpty()) {
+            throw new IllegalArgumentException("El path no puede ser nulo o vacio");
         }
-        return null;
+        DataTable table = new DataTable();
+        List<String[]> rawRows = new ArrayList<>();
+        String[] headers = null;
+        List<DataType> columnTypes = new ArrayList<>();
+
+        // Lectura del archivo y fase de parseo
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))){
+            String line = reader.readLine();
+            if (hasHeaders) {
+                headers = line.split(Pattern.quote(delimiter), -1);
+                // Arranco asumiendo que todas las columnas son de tipo String
+                for (int i = 0; i < headers.length; i++){
+                    columnTypes.add(DataType.STRING);
+                }
+            } else {
+                // Si no hay headers, agrego el tipo de cada columna por indice de columna
+                int columnCount = line.split(Pattern.quote(delimiter), -1).length;
+                for (int i = 0; i < columnCount; i++) {
+                    columnTypes.add(DataType.STRING);
+                }
+                // Contruccion del DataTable con tipos definitivos
+                for (int i = 0; i < headers.length; i++){
+                    table.addColumn(headers[i].trim(), columnTypes.get(i));
+                    }
+            while (line != null) {
+                String[] values = line.split(Pattern.quote(delimiter), -1);
+                rawRows.add(values);
+                for (int i = 0; i < values.length; i++){
+                    columnTypes.set(i, inferType(values[i], columnTypes.get(i)));
+                }
+
+            }
+        }
+
+        // Parseo final de los datos
+        for (String[]row : rawRows){
+            List<Object> parsed = new ArrayList<>();
+            for (int i = 0; i < row.length; i++){
+                parsed.add(inferType(row[i], columnTypes.get(i)));
+            }
+            table.addRow(parsed);
+        }
+
+        return table;
+    } catch (IOException e) {
+            throw new IOException("Error al leer el archivo: " + filePath, e);
+        }
     }
+
+    public DataTable read(String filePath) throws IOException {
+        return read(filePath, ",", true);
+    }
+        
+    private DataType inferType(String value, DataType currentType){
+        if (value == null || value.isEmpty()) {
+            return currentType; // TODO DataType NA?
+        }
+        
+        try {
+            Integer.parseInt(value);
+            return DataType.INTEGER;
+        } catch (NumberFormatException e) {
+        }
+        
+        try {
+            Double.parseDouble(value);
+            return DataType.DOUBLE;
+        } catch (NumberFormatException e) {
+        }
+        
+        if (value.equalsIgnoreCase("true") || value.equalsIgnoreCase("false")) {
+            return DataType.BOOLEAN;
+        }
+        
+        return DataType.STRING; // Si no se puede inferir, mantenemos el tipo actual
+    }
+
+
 }
