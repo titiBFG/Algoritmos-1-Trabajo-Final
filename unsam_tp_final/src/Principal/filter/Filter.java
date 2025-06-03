@@ -1,10 +1,10 @@
 // Filter.java - clase o interfaz de core
 package Principal.filter;
 
-import Principal.table.RowView;
+import Principal.table.Row;
 
 public interface Filter{
 
-    boolean apply(RowView row);
+    boolean apply(Row row);
 
 }

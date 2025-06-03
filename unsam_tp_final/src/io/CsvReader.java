@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.HashMap;
 import Principal.table.DataTable;
-import Principal.table.RowView;
+import Principal.table.Row;
 import Principal.table.Column;
 import utils.enums.DataType;
 import io.interfaces.TableReader;
@@ -16,6 +16,9 @@ import io.interfaces.TableReader;
 
 public class CsvReader implements TableReader {
 
+
+    @Override
+    
     public DataTable read(String filePath, String delimiter) throws IOException {
         if (filePath == null || filePath.isEmpty()) {
             throw new IllegalArgumentException("El path no puede ser nulo o vacio");
@@ -35,7 +38,7 @@ public class CsvReader implements TableReader {
                 columnTypes.add(DataType.STRING);
 
             }
-            while (line != null) {
+            while ((line = reader.readLine()) != null) {
                 String[] values = line.split(Pattern.quote(delimiter), -1);
                 rawRows.add(values);
                 for (int i = 0; i < values.length; i++){

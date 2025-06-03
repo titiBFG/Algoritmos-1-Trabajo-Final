@@ -2,12 +2,12 @@ package Principal.table;
 
 import java.util.List;
 
-public class RowView {
+public class Row {
     private final int index;
     private final List<Object> values;
     private final List<String> columnLabels;
 
-    public RowView(int index, List<Object> values, List<String> columnLabels) {
+    public Row(int index, List<Object> values, List<String> columnLabels) {
         this.index = index;
         this.values = values;
         this.columnLabels = columnLabels;

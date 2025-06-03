@@ -3,6 +3,6 @@ public interface Table {
     
     int getRowCount();
     int getColumnCount();
-    RowView getRowView(int index);
+    Row getRow(int index);
     Column getColumn(String label);
 }

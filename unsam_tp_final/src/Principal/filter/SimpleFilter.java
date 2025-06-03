@@ -1,7 +1,7 @@
 // SimpleFilter.java - clase o interfaz de core
 package Principal.filter;
 
-import Principal.table.RowView;
+import Principal.table.Row;
 import utils.enums.Operator;
 import java.util.Objects;
 
@@ -24,7 +24,7 @@ public class SimpleFilter implements Filter {
 
     @Override
 
-    public boolean apply(RowView row){
+    public boolean apply(Row row){
         Object value = row.getValue(columnName);
 
         switch (operator){

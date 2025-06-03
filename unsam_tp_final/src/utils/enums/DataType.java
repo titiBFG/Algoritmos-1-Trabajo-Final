@@ -3,7 +3,7 @@ package utils.enums;
 import java.util.function.Function;
 
 public enum DataType {
-    INT(Integer::parseInt),
+    INTEGER(Integer::parseInt),
     FLOAT(Float::parseFloat),
     DOUBLE(Double::parseDouble),
     STRING(s -> s),
