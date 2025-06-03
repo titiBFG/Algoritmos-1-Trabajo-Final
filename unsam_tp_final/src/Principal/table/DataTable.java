@@ -1,79 +1,93 @@
 package Principal.table;
-// DataTable.java - clase o interfaz de core
-import java.util.Map;
-import java.util.Objects;
-import java.util.LinkedHashMap;
-import java.util.List;
-import utils.enums.DataType;
+
+import java.util.*;
+import java.util.stream.Collectors;
 import Principal.filter.Filter;
+import utils.enums.DataType;
 
+public class DataTable implements Table {
+    private final Map<Integer, Row> rows;
+    private final List<Column> columns;
+    private final Map<String, DataType> columnTypes;
 
-public class DataTable{
-
-    private Map<Integer, Row> rows;
-    private List<Column> columns;
-    private Map<String, DataType> columnTypes;
-
-    public DataTable(Map<Integer, Row> rows, List<Column> columns, Map<String, DataType> columnTypes) {
-        this.rows = rows;
-        this.columns = columns;
-        this.columnTypes = columnTypes;
+    public DataTable(Map<Integer, Row> rows,
+                     List<Column> columns,
+                     Map<String, DataType> columnTypes) {
+        Objects.requireNonNull(rows, "La fila no puede ser null");
+        Objects.requireNonNull(columns, "La columna no puede ser null");
+        Objects.requireNonNull(columnTypes, "columnTypes no puede ser null");
+        for (Column col : columns) {
+            if (!columnTypes.containsKey(col.getLabel())) {
+                throw new IllegalArgumentException(
+                    "columnTypes debe contener tipo para: " + col.getLabel());
+            }
+        }
+        this.rows = new LinkedHashMap<>(rows);
+        this.columns = List.copyOf(columns);
+        this.columnTypes = Map.copyOf(columnTypes);
     }
 
-     public void showRowCount() {
-        System.out.println("Row count: " + rows.size());
+    @Override
+    public List<String> getColumnLabels() {
+        return columns.stream()
+                      .map(Column::getLabel)
+                      .collect(Collectors.toUnmodifiableList());
     }
 
-    public void showColumnCount() {
-        System.out.println("Column count: " + columns.size());
+    @Override
+    public int getRowCount() {
+        return rows.size();
     }
 
-    public void showColumnTypes() {
-        columnTypes.forEach((nombre, type) -> {
-                System.out.println(nombre + ": " + type);
-            });
+    @Override
+    public int getColumnCount() {
+        return columns.size();
     }
 
+    @Override
     public Object getValue(String columnName, int rowIndex) {
+        validateColumnName(columnName);
         Row row = rows.get(rowIndex);
         if (row == null) {
-            throw new IllegalArgumentException("Fila no Encontrada: " + rowIndex);
+            throw new IllegalArgumentException("Fila no encontrada: " + rowIndex);
         }
         return row.getValue(columnName);
     }
 
-    public Row getRow(int row) {
-        return rows.get(row);
+    @Override
+    public Row getRow(int rowIndex) {
+        Row row = rows.get(rowIndex);
+        if (row == null) {
+            throw new IllegalArgumentException("Fila no encontrada: " + rowIndex);
+        }
+        return row;
     }
 
+    @Override
     public List<Column> getColumns() {
-        return columns;
+        return List.copyOf(columns);
     }
 
-    public List<String> getColumnLabels(){
-        return columns.stream()
-                    .map(Column::getLabel)
-                    .toList();
-    }
-
-    public DataTable filter(Filter filter) {
+    @Override
+    public Table filter(Filter filter) {
         Objects.requireNonNull(filter, "filter no puede ser null");
-
-        // 1) Preparo newRows vacío
         Map<Integer, Row> newRows = new LinkedHashMap<>();
-
-        // 2) Itero todas las filas actuales
-        for (Map.Entry<Integer, Row> entry : this.rows.entrySet()) {
+        for (var entry : this.rows.entrySet()) {
             Integer rowId = entry.getKey();
-            Row row = entry.getValue();
-
-            // 3) Si el filtro se cumple, agrego la misma instancia de RowView.
-            if (filter.apply(row)) {
-                newRows.put(rowId, row);
+            Row fila = entry.getValue();
+            if (filter.apply(fila)) {
+                newRows.put(rowId, fila);
             }
         }
-
-        // 4) Construyo un nuevo DataTable con las mismas columnas, mismos tipos, pero solo filas filtradas
         return new DataTable(newRows, this.columns, this.columnTypes);
+    }
+
+    private void validateColumnName(String columnName) {
+        boolean existe = columns.stream()
+                                .anyMatch(col -> col.getLabel().equals(columnName));
+        if (!existe) {
+            throw new IllegalArgumentException(
+                "La columna '" + columnName + "' no existe.");
+        }
     }
 }
