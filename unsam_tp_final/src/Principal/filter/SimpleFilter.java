@@ -23,9 +23,24 @@ public class SimpleFilter implements Filter {
     }
 
     @Override
-
     public boolean apply(Row row){
         Object value = row.getValue(columnName);
+
+        // --- Parche para comparar numéricos ---
+        if (value instanceof Number && compareValue instanceof Number) {
+            double v1 = ((Number)value).doubleValue();
+            double v2 = ((Number)compareValue).doubleValue();
+            switch (operator) {
+                case GT: return v1 > v2;
+                case LT: return v1 < v2;
+                case GE: return v1 >= v2;
+                case LE: return v1 <= v2;
+                case EQ: return v1 == v2;
+                case EN: return v1 != v2;
+                default: throw new IllegalArgumentException("Operador no soportado: " + operator);
+            }
+        }
+        // --- FIN PARCHE ---
 
         switch (operator){
             case EQ:

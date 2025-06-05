@@ -90,4 +90,12 @@ public class DataTable implements Table {
                 "La columna '" + columnName + "' no existe.");
         }
     }
+
+    public Map<Integer, Row> getRows() {
+    return rows;
+}
+
+    public java.util.Map<String, utils.enums.DataType> getColumnTypes() {
+    return columnTypes;
+}
 }
