@@ -1,0 +1,50 @@
+long,lat,nro_registro,tipo_activ,comuna,manzana,calle_nombre,calle_altura,calle_chapa,direccion_normalizada,ubicacion,nombre_cientifico,ancho_acera,estado_plantera,ubicacion_plantera,nivel_plantera,diametro_altura_pecho,altura_arbol
+"-58.3815037852122,-34.5917192301832,31404,Lineal,1,NA,Pellegrini Carlos,1300.0,1391.0,""PELLEGRINI,CARLOS 1391"",Exacta,Liquidambar styraciflua,4.5,Ocupada,Regular,Elevada,25.0
+"-58.3815037852122,-34.5917192301832,31406,Lineal,1,NA,Pellegrini Carlos,1300.0,1391.0,""PELLEGRINI,CARLOS 1391"",LA,No identificado,4.5,Ocupada,Regular,Elevada,50.0
+"-58.3815136158107,-34.591927864854306,31434,Lineal,1,NA,Pellegrini Carlos,1300.0,1373.0,""PELLEGRINI,CARLOS 1373"",LA,Washingtonia filifera,4.5,Sobreocupada,Regular,Elevada,45.0
+"-58.381514636401704,-34.591949524651696,31413,Lineal,1,NA,Pellegrini Carlos,1300.0,1371.0,""PELLEGRINI,CARLOS 1371"",LD,No identificado,7,Ocupada,Regular,Elevada,110.0
+"-58.381514636401704,-34.591949524651696,31414,Lineal,1,NA,Pellegrini Carlos,1300.0,1371.0,""PELLEGRINI,CARLOS 1371"",LD,Phoenix roebelenii,7,Ocupada,Regular,Elevada,15.0
+-58.3800906139685,-34.5917281579124,32161,Lineal,1,NA,Suipacha,1300.0,1371.0,SUIPACHA 1371,Exacta,Tilia x moltkei,2.8,Ocupada,Regular,A nivel,4.0,3.0
+"-58.381514636401704,-34.591949524651696,31457,Lineal,1,NA,Pellegrini Carlos,1300.0,1371.0,""PELLEGRINI,CARLOS 1371"",LD,Phoenix roebelenii,7,Ocupada,Regular,Elevada,15.0
+-58.3800859244302,-34.5918227932582,32163,Lineal,1,NA,Suipacha,1300.0,1367.0,SUIPACHA 1367,Exacta,Tilia x moltkei,2.8,Ocupada,Regular,A nivel,3.0,3.0
+"-58.3815244007086,-34.592156751413,31444,Lineal,1,NA,Pellegrini Carlos,1300.0,1355.0,""PELLEGRINI,CARLOS 1355"",Exacta,Fraxinus pennsylvanica,4.5,Sobreocupada,Regular,Elevada,18.0
+"-58.3815320317035,-34.5923187022722,30887,Lineal,1,NA,Pellegrini Carlos,1300.0,1345.0,""PELLEGRINI,CARLOS 1345"",Exacta,Peltophorum dubium,4.5,Ocupada,Regular,Elevada,6.0
+"-58.3815359556362,-34.5924019787841,31407,Lineal,1,NA,Pellegrini Carlos,1300.0,1337.0,""PELLEGRINI,CARLOS 1337"",Exacta,Phoenix loureiri,4.5,Ocupada,Regular,Elevada,15.0
+"-58.3815471084899,-34.592638671656395,31411,Lineal,1,NA,Pellegrini Carlos,1300.0,1317.0,""PELLEGRINI,CARLOS 1317"",Exacta,Phoenix roebelenii,7,Ocupada,Regular,Elevada,15.0
+"-58.3815471084899,-34.592638671656395,31453,Lineal,1,NA,Pellegrini Carlos,1300.0,1317.0,""PELLEGRINI,CARLOS 1317"",LD,Phoenix roebelenii,7,Ocupada,Regular,Elevada,12.0
+-58.3829490866606,-34.5929798034788,32187,Lineal,1,NA,Cerrito,1200.0,1294.0,CERRITO 1294,Exacta,Fraxinus pennsylvanica,6,Ocupada,Fuera de línea,A nivel,45.0,12.0
+-58.382948339195,-34.5929965706823,32192,Lineal,1,NA,Cerrito,1200.0,1290.0,CERRITO 1290,Exacta,Ficus benjamina,NA,Ocupada,Regular,A nivel,60.0,11.0
+-58.382925505897205,-34.593508764111,32205,Lineal,1,NA,Cerrito,1200.0,1250.0,CERRITO 1250,Exacta,Fraxinus pennsylvanica,10.8,Ocupada,Fuera de línea,A nivel,45.0,11.0
+-58.3829196445786,-34.5936402433634,32207,Lineal,1,NA,Cerrito,1200.0,1248.0,CERRITO 1248,Exacta,Fraxinus pennsylvanica,10,Ocupada,Fuera de línea,A nivel,30.0,10.0
+-58.3829196445786,-34.5936402433634,32209,Lineal,1,NA,Cerrito,1200.0,1248.0,CERRITO 1248,LD,Ficus elastica,10,Ocupada,Regular,A nivel,2.0,20.0
+-58.382916187983504,-34.593717780491,32210,Lineal,1,NA,Cerrito,1200.0,1240.0,CERRITO 1240,Exacta,Fraxinus pennsylvanica,10,Ocupada,Fuera de línea,A nivel,50.0,12.0
+-58.373356163081596,-34.594871383544806,31864,Lineal,1,NA,Reconquista,1100.0,1126.0,RECONQUISTA 1126,En frente,Jacaranda mimosifolia,NA,Ocupada,NA,A nivel,8.0,3.0
+-58.3785628928503,-34.5949023233017,26779,Lineal,1,NA,Esmeralda,1000.0,1120.0,ESMERALDA 1120,NA,Tipuana tipu,5.5,Ocupada,Regular,A nivel,88.0,34.0
+-58.3813273860786,-34.5916145753826,31443,Lineal,1,NA,Arroyo,900.0,1000.0,ARROYO 1000,Exacta,Ficus benjamina,4.5,Ocupada,Regular,A nivel,48.0,12.0
+-58.38113747222079,-34.5915941102052,31435,Lineal,1,NA,Arroyo,900.0,980.0,ARROYO 980,LD,Jacaranda mimosifolia,NA,Ocupada,Regular,A nivel,4.0,3.0
+-58.38113747222079,-34.5915941102052,31454,Lineal,1,NA,Arroyo,900.0,980.0,ARROYO 980,LD,Jacaranda mimosifolia,4.5,Ocupada,Regular,A nivel,11.0,8.0
+-58.3810432055025,-34.5915839520842,31344,Lineal,1,NA,Arroyo,900.0,970.0,ARROYO 970,Exacta,Fraxinus pennsylvanica,3.5,Ocupada,Regular,A nivel,29.0,15.0
+-58.380967792129205,-34.5915758255639,31346,Lineal,1,NA,Arroyo,900.0,962.0,ARROYO 962,LA,Fraxinus pennsylvanica,4.5,Ocupada,Regular,A nivel,21.0,12.0
+-58.380882637384005,-34.5915666489638,31375,Lineal,1,NA,Arroyo,900.0,950.0,ARROYO 950,Exacta,Fraxinus pennsylvanica,4.5,Ocupada,Regular,A nivel,28.0,15.0
+-58.3808116750906,-34.5915590018614,31354,Lineal,1,NA,Arroyo,900.0,940.0,ARROYO 940,Exacta,Jacaranda mimosifolia,NA,Ocupada,Regular,A nivel,38.0,15.0
+-58.3807095655605,-34.5915479981732,31336,Lineal,1,NA,Arroyo,900.0,932.0,ARROYO 932,LD,Fraxinus pennsylvanica,NA,Ocupada,Regular,A nivel,9.0,29.0
+-58.3807095655605,-34.5915479981732,31337,Lineal,1,NA,Arroyo,900.0,932.0,ARROYO 932,LA,Jacaranda mimosifolia,NA,Ocupada,Regular,A nivel,13.0,8.0
+-58.3807095655605,-34.5915479981732,31374,Lineal,1,NA,Arroyo,900.0,932.0,ARROYO 932,Exacta,Fraxinus pennsylvanica,4.5,Ocupada,Regular,A nivel,22.0,13.0
+-58.3807095655605,-34.5915479981732,31440,Lineal,1,NA,Arroyo,900.0,932.0,ARROYO 932,LA,Fraxinus pennsylvanica,NA,Ocupada,Regular,A nivel,38.0,13.0
+-58.3807095655605,-34.5915479981732,31447,Lineal,1,NA,Arroyo,900.0,932.0,ARROYO 932,LD,Fraxinus pennsylvanica,NA,Ocupada,Regular,A nivel,62.0,9.0
+-58.3799198493308,-34.5914661250238,32156,Lineal,1,NA,Arroyo,800.0,896.0,ARROYO 896,Exacta,Fraxinus pennsylvanica,4,Ocupada,Regular,A nivel,30.0,17.0
+-58.3798325313545,-34.5914741715734,32154,Lineal,1,NA,Arroyo,800.0,894.0,ARROYO 894,Exacta,Fraxinus pennsylvanica,4,Ocupada,Regular,A nivel,14.0,14.0
+-58.379839167529,-34.592820500504104,32142,Lineal,1,NA,Juncal,800.0,885.0,JUNCAL 885,Exacta,Tilia x moltkei,2.8,Ocupada,Regular,A nivel,25.0,12.0
+-58.379802865373605,-34.5914753259887,32152,Lineal,1,NA,Arroyo,800.0,882.0,ARROYO 882,Exacta,Fraxinus pennsylvanica,4,Ocupada,Regular,A nivel,10.0,9.0
+-58.379802865373605,-34.5914753259887,32151,Lineal,1,NA,Arroyo,800.0,880.0,ARROYO 880,Exacta,Fraxinus pennsylvanica,4,Ocupada,Regular,A nivel,15.0,16.0
+-58.379725963726905,-34.5914219688939,32150,Lineal,1,NA,Arroyo,800.0,872.0,ARROYO 872,LD,Tilia x moltkei,4,Ocupada,Regular,A nivel,25.0,16.0
+-58.379597318476804,-34.5914586829064,32148,Lineal,1,NA,Arroyo,800.0,866.0,ARROYO 866,Exacta,Tilia x moltkei,4,Ocupada,Regular,A nivel,20.0,12.0
+-58.3792810039633,-34.591693280788306,32147,Lineal,1,NA,Arroyo,800.0,862.0,ARROYO 862,Exacta,Fraxinus pennsylvanica,4,Ocupada,Regular,A nivel,10.0,15.0
+-58.3792868690236,-34.5917126215894,32146,Lineal,1,NA,Arroyo,800.0,858.0,ARROYO 858,Exacta,Fraxinus pennsylvanica,4,Ocupada,Regular,A nivel,8.0,11.0
+-58.37916495228001,-34.5918629234031,31415,Lineal,1,NA,Arroyo,800.0,852.0,ARROYO 852,Exacta,Fraxinus pennsylvanica,4,Ocupada,Regular,A nivel,23.0,18.0
+-58.37916495228001,-34.5918629234031,31452,Lineal,1,NA,Arroyo,800.0,852.0,ARROYO 852,Exacta,Fraxinus pennsylvanica,4,Ocupada,Regular,A nivel,20.0,18.0
+-58.3791031622524,-34.5919390993515,30904,Lineal,1,NA,Arroyo,800.0,848.0,ARROYO 848,Exacta,Fraxinus pennsylvanica,4,Ocupada,Regular,A nivel,7.0,6.0
+-58.379046414435905,-34.5920090590048,31442,Lineal,1,NA,Arroyo,800.0,840.0,ARROYO 840,Exacta,Fraxinus pennsylvanica,4,Ocupada,Regular,A nivel,23.0,30.0
+-58.3789565376274,-34.5921198603248,31430,Lineal,1,NA,Arroyo,800.0,834.0,ARROYO 834,Exacta,Fraxinus pennsylvanica,4,Ocupada,Regular,A nivel,25.0,30.0
+-58.3788902797363,-34.592201543703,31418,Lineal,1,NA,Arroyo,800.0,830.0,ARROYO 830,Exacta,Fraxinus pennsylvanica,4,Ocupada,Regular,A nivel,28.0,28.0
+-58.3914306239641,-34.6002913412702,31458,Lineal,1,NA,Rodriguez Peña,700.0,751.0,RODRIGUEZ PEÑA 751,Exacta,Fraxinus pennsylvanica,2.6,Ocupada,Regular,Bajo nivel,18.0,9.0

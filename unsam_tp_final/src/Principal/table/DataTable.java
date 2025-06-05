@@ -98,4 +98,24 @@ public class DataTable implements Table {
     public java.util.Map<String, utils.enums.DataType> getColumnTypes() {
     return columnTypes;
 }
+
+    public DataTable sample(int n) {
+        List<Integer> indices = new ArrayList<>(this.getRows().keySet());
+        Collections.shuffle(indices);
+        int sampleSize = Math.min(n, indices.size());
+        LinkedHashMap<Integer, Row> sampledRows = new LinkedHashMap<>();
+        for (int i = 0; i < sampleSize; i++) {
+            Integer idx = indices.get(i);
+            sampledRows.put(idx, this.getRows().get(idx));
+        }
+        return new DataTable(sampledRows, this.getColumns(), this.getColumnTypes());
+    }
+
+    public DataTable sample(double frac) {
+        if (frac <= 0 || frac > 1) throw new IllegalArgumentException("frac debe estar entre 0 (exclusivo) y 1 (inclusivo)");
+        int n = (int) Math.ceil(frac * this.getRowCount());
+        return this.sample(n);
+}
+
+
 }
