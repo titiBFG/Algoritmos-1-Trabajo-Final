@@ -8,8 +8,7 @@ public enum DataType {
     DOUBLE(Double::parseDouble),
     STRING(s -> s),
     BOOLEAN(Boolean::parseBoolean);
-    /*TODO NA (s -> s) */
-
+    
     private final Function<String, ?> parser;
 
     DataType(Function<String, ?> parser) {

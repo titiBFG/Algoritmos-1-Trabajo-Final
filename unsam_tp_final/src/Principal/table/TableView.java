@@ -19,7 +19,6 @@ public class TableView {
     }
 
     public void printAllRows() {
-        List<String> labels = table.getColumnLabels();
         System.out.println("Contenido completo de la tabla");
         for (int i = 0; i < table.getRowCount(); i++) {
             Row fila = table.getRow(i);
