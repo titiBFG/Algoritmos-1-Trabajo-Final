@@ -138,7 +138,53 @@ public class DataTable implements Table {
         return new DataTable(lastRows, columns, columnTypes);
     }
 
+    public DataTable deepCopy() {
+        // Copia profunda de filas
+        LinkedHashMap<Integer, Row> newRows = new LinkedHashMap<>();
+        for (Map.Entry<Integer, Row> entry : this.getRows().entrySet()) {
+            newRows.put(entry.getKey(), new Row(entry.getValue()));
+        }
+        // Copia profunda de columnas
+        List<Column> newColumns = new ArrayList<>();
+        for (Column col : this.getColumns()) {
+            newColumns.add(new Column(col));
+        }
+        // Copia de tipos de columna
+        Map<String, DataType> newTypes = new LinkedHashMap<>(this.getColumnTypes());
+        // Nueva instancia independiente
+        return new DataTable(newRows, newColumns, newTypes);
+    }
 
+    public static DataTable concat(DataTable t1, DataTable t2) {
+        // Validar columnas
+        List<Column> cols1 = t1.getColumns();
+        List<Column> cols2 = t2.getColumns();
+        if (cols1.size() != cols2.size()) {
+            throw new IllegalArgumentException("Cantidad de columnas distinta");
+        }
+        for (int i = 0; i < cols1.size(); i++) {
+            if (!cols1.get(i).getLabel().equals(cols2.get(i).getLabel())) {
+                throw new IllegalArgumentException("Las etiquetas de columna no coinciden en la posición " + i);
+            }
+        }
+        // Validar tipos
+        if (!t1.getColumnTypes().equals(t2.getColumnTypes())) {
+            throw new IllegalArgumentException("Los tipos de columna no coinciden");
+        }
+        // Concatenar filas con nuevos índices
+        LinkedHashMap<Integer, Row> newRows = new LinkedHashMap<>();
+        int idx = 0;
+        for (Row row : t1.getRows().values()) {
+            newRows.put(idx, new Row(idx, row.getValues(), row.getColumnLabels()));
+            idx++;
+        }
+        for (Row row : t2.getRows().values()) {
+            newRows.put(idx, new Row(idx, row.getValues(), row.getColumnLabels()));
+            idx++;
+        }
+        // Crear nueva DataTable
+        return new DataTable(newRows, cols1, t1.getColumnTypes());
+    }
 
 
 

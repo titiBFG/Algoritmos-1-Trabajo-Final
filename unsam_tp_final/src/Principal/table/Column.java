@@ -1,5 +1,7 @@
 package Principal.table;
 
+import java.util.ArrayList;
+
 import utils.enums.DataType;
 
 public class Column {
@@ -19,4 +21,9 @@ public class Column {
     public String getLabel(){
         return label;
     }
+    // Un constructor de copia que cree una nueva columna a partir de otra.
+    public Column(Column other) {
+        this.label = other.label;
+    }
+
 }

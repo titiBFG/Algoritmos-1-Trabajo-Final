@@ -26,7 +26,7 @@ public class Main {
             // 1) LECTURA DE CSV: cargamos el archivo en una DataTable
             // ==========================================================
             TableReader lector = new CsvReader();
-            String filePath = "src\\csvPrueva\\arbolado-publico-lineal-2017-2018.csv";
+            String filePath = "C:\\Users\\Julian\\OneDrive\\Desktop\\Algoritmos-1-Trabajo-Final-1\\unsam_tp_final\\src\\csvPrueva\\arbolado-publico-lineal-2017-2018.csv";
             DataTable dataTable = lector.read(filePath, ",");
 
             // ==========================================================
@@ -100,7 +100,7 @@ public class Main {
             // ==========================================================
             CsvWriter writer = new CsvWriter();
             writer.write(tablaOrdenada_2,
-                "src\\csvPrueva\\resultado_3.csv",
+                "C:\\Users\\Julian\\OneDrive\\Desktop\\Algoritmos-1-Trabajo-Final-1\\unsam_tp_final\\src\\csvPrueva\\resultado_3.csv",
                 ",", false); // 'false' para no incluir encabezado, 'true' para incluirlo
 
             // ==========================================================
@@ -121,6 +121,37 @@ public class Main {
             System.out.println("MUESTRA DEL 20% DE LAS FILAS:");
             TableView viewMuestraPorciento = new TableView(muestraVeintePorciento);
             viewMuestraPorciento.printProlijo();
+
+            // ==========================================================
+            // 10) COPIA PROFUNDA: crear una copia de la tabla original
+            // ==========================================================
+            DataTable copia = dataTable.deepCopy();
+            // Cambiar un valor en la copia
+            copia.getRows().get(0).setValue("altura_arbol", 100); 
+
+            // Mostrar solo la fila modificada y la original para comparar
+            System.out.println("Fila modificada de la copia:");
+            System.out.println(copia.getRows().get(0));
+            System.out.println("Fila correspondiente en la tabla original (debería ser distinta):");
+            System.out.println(dataTable.getRows().get(0));
+
+            // ==========================================================
+            // 11) CONCATENACIÓN: unir dos DataTables con las mismas columnas
+            // ==========================================================
+            
+            // 1) Tomar dos tablas originales o filtradas (puede ser la misma para probar)
+            DataTable tablaA = dataTable.sample(5); // 5 filas al azar de la tabla original
+            DataTable tablaB = dataTable.sample(5); // otras 5 filas al azar
+
+            // 2) Concatenar ambas tablas
+            DataTable concatenada = DataTable.concat(tablaA, tablaB);
+
+            // 3) Visualizar el resultado
+            System.out.println("TABLA CONCATENADA:");
+            TableView viewConcat = new TableView(concatenada);
+            viewConcat.printSummary();
+            viewConcat.printAllRows();
+            viewConcat.printAsGrid();
 
         } catch (Exception e) {
             e.printStackTrace();
