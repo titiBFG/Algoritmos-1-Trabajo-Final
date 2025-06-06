@@ -186,6 +186,17 @@ public class DataTable implements Table {
         return new DataTable(newRows, cols1, t1.getColumnTypes());
     }
 
+    // Método para imputar valores en una columna específica
+    public DataTable impute(String columnName, Object nuevoValor) {
+        DataTable copia = this.deepCopy();
+        for (Row row : copia.getRows().values()) {
+            Object valor = row.getValue(columnName);
+            if (valor != null && valor.toString().trim().equalsIgnoreCase("NA")) {
+                row.setValue(columnName, nuevoValor);
+            }
+        }
+        return copia;
+    }
 
 
 }

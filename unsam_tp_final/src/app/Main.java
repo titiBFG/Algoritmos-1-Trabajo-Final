@@ -138,7 +138,7 @@ public class Main {
             // ==========================================================
             // 11) CONCATENACIÓN: unir dos DataTables con las mismas columnas
             // ==========================================================
-            
+
             // 1) Tomar dos tablas originales o filtradas (puede ser la misma para probar)
             DataTable tablaA = dataTable.sample(5); // 5 filas al azar de la tabla original
             DataTable tablaB = dataTable.sample(5); // otras 5 filas al azar
@@ -152,6 +152,18 @@ public class Main {
             viewConcat.printSummary();
             viewConcat.printAllRows();
             viewConcat.printAsGrid();
+
+            //===========================================================
+            // 12) Imputación de valores: reemplazar "NA" por un valor específico
+            //===========================================================
+
+            // Imputar solo NA de la columna "ancho_acera" con 1.5
+            DataTable imputadaColumna = concatenada.impute("ancho_acera", 1.5);
+
+            // Visualizá el resultado para ver el cambio
+            TableView viewImputada = new TableView(imputadaColumna);
+            System.out.println("TABLA CON IMPUTACIÓN DE 'NA' EN 'ancho_acera' CON 1.5:");
+            viewImputada.printAllRows();
 
         } catch (Exception e) {
             e.printStackTrace();
