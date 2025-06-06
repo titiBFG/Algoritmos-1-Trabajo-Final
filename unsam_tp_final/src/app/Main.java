@@ -26,18 +26,23 @@ public class Main {
             // 1) LECTURA DE CSV: cargamos el archivo en una DataTable
             // ==========================================================
             TableReader lector = new CsvReader();
-            String filePath = "C:\\Users\\Julian\\OneDrive\\Desktop\\Algoritmos-1-Trabajo-Final-1\\unsam_tp_final\\src\\csvPrueva\\arbolado-publico-lineal-2017-2018.csv";
+            String filePath = "C:\\Users\\User\\IdeaProjects\\tp-develop\\src\\csvPrueva\\arbolado-publico-lineal-2017-2018.csv";
             DataTable dataTable = lector.read(filePath, ",");
 
             // ==========================================================
             // 2) VISUALIZACIÓN: mostramos resumen, filas y grid de la tabla original
             // ==========================================================
             TableView view = new TableView(dataTable);
-            view.printSummary();
-            System.out.println();
-            view.printAllRows();
-            System.out.println();
-            view.printAsGrid();
+            view.printProlijo();
+            // Muestra las primeras 5 filas
+            TableView tableView = new TableView(dataTable.head(5));
+            System.out.println("head 5");
+            tableView.printAllRows();
+            //muestra las ultimas 5 filas
+
+            TableView tableView2 = new TableView(dataTable.tail(5));
+            System.out.println("tail 5");
+            tableView2.printAllRows();
 
             // ==========================================================
             // 3) FILTRO SIMPLE: árboles con altura_arbol > 10
@@ -48,11 +53,7 @@ public class Main {
             // Mostrar resultados del filtro simple
             TableView view_filtro_simple = new TableView(filtrada);
             System.out.println("RESUMEN DE ÁRBOLES CON ALTURA > 10:");
-            view_filtro_simple.printSummary();
-            System.out.println();
-            view_filtro_simple.printAllRows();
-            System.out.println();
-            view_filtro_simple.printAsGrid();
+            view_filtro_simple.printProlijo();
 
             // ==========================================================
             // 4) FILTRO COMPUESTO: altura > 10 Y especie igual a 'Fraxinus pennsylvanica'
@@ -67,9 +68,7 @@ public class Main {
             // Mostrar resultados del filtro compuesto
             TableView viewComp = new TableView(filtrada_combinada);
             System.out.println("RESUMEN DE ÁRBOLES CON ALTURA > 10 Y ESPECIE 'Fraxinus pennsylvanica':");
-            viewComp.printSummary();
-            viewComp.printAllRows();
-            viewComp.printAsGrid();
+            viewComp.printProlijo();
 
             // ==========================================================
             // 5) ORDENAMIENTO: por una columna (altura_arbol ascendente)
@@ -81,9 +80,7 @@ public class Main {
             // Visualizar la tabla ordenada por altura_arbol
             TableView viewOrdenada = new TableView(tablaOrdenada);
             System.out.println("TABLA ORDENADA POR altura_arbol ASCENDENTE:");
-            viewOrdenada.printSummary();
-            viewOrdenada.printAllRows();
-            viewOrdenada.printAsGrid();
+            viewOrdenada.printProlijo();
             
             // ==========================================================
             // 6) ORDENAMIENTO: por dos columnas (ej: calle_altura y calle_chapa descendente)
@@ -96,15 +93,14 @@ public class Main {
             // Visualizar la tabla ordenada por dos columnas
             System.out.println("TABLA ORDENADA POR calle_altura Y calle_chapa DESCENDENTE:");
             TableView viewOrdenada_2 = new TableView(tablaOrdenada_2);
-            viewOrdenada_2.printSummary();
-            viewOrdenada_2.printAsGrid();
+            viewOrdenada_2.printProlijo();
 
             // ==========================================================
             // 7) EXPORTAR A CSV el resultado ordenado
             // ==========================================================
             CsvWriter writer = new CsvWriter();
             writer.write(tablaOrdenada_2,
-                "C:\\Users\\Julian\\OneDrive\\Desktop\\Algoritmos-1-Trabajo-Final-1\\unsam_tp_final\\src\\csvPrueva\\resultado_3.csv",
+                "C:\\Users\\User\\IdeaProjects\\tp-develop\\src\\csvPrueva\\resultado_3.csv",
                 ",", false); // 'false' para no incluir encabezado, 'true' para incluirlo
 
             // ==========================================================
@@ -115,8 +111,7 @@ public class Main {
             // Mostrar la muestra de 5 filas
             System.out.println("MUESTRA DE 5 FILAS ALEATORIAS:");
             TableView viewMuestra = new TableView(muestraCinco);
-            viewMuestra.printSummary();
-            viewMuestra.printAllRows();
+            viewMuestra.printProlijo();
 
             // ==========================================================
             // 9) MUESTREO ALEATORIO: obtener el 20% de las filas al azar
@@ -125,8 +120,7 @@ public class Main {
 
             System.out.println("MUESTRA DEL 20% DE LAS FILAS:");
             TableView viewMuestraPorciento = new TableView(muestraVeintePorciento);
-            viewMuestraPorciento.printSummary();
-            viewMuestraPorciento.printAllRows();
+            viewMuestraPorciento.printProlijo();
 
         } catch (Exception e) {
             e.printStackTrace();

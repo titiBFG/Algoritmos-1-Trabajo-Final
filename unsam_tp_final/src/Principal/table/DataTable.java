@@ -116,6 +116,30 @@ public class DataTable implements Table {
         int n = (int) Math.ceil(frac * this.getRowCount());
         return this.sample(n);
 }
+//creo tablas nuevas para head y tail, por que?
+    public DataTable head(int n) {
+        LinkedHashMap<Integer, Row> firstRows = new LinkedHashMap<>();
+        int count = 0;
+        for (Map.Entry<Integer, Row> entry : rows.entrySet()) {
+            if (count >= n) break;
+            firstRows.put(entry.getKey(), entry.getValue());
+            count++;
+        }
+        return new DataTable(firstRows, columns, columnTypes);
+    }
+
+    public DataTable tail(int n) {
+        LinkedHashMap<Integer, Row> lastRows = new LinkedHashMap<>();
+        List<Integer> keys = new ArrayList<>(rows.keySet());
+        int start = Math.max(0, keys.size() - n);
+        for (int i = start; i < keys.size(); i++) {
+            lastRows.put(keys.get(i), rows.get(keys.get(i)));
+        }
+        return new DataTable(lastRows, columns, columnTypes);
+    }
+
+
+
 
 
 }
