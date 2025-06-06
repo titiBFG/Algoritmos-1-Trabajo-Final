@@ -26,7 +26,7 @@ public class Main {
             // 1) LECTURA DE CSV: cargamos el archivo en una DataTable
             // ==========================================================
             TableReader lector = new CsvReader();
-            String filePath = "C:\\Users\\User\\IdeaProjects\\tp-develop\\src\\csvPrueva\\arbolado-publico-lineal-2017-2018.csv";
+            String filePath = "src\\csvPrueva\\arbolado-publico-lineal-2017-2018.csv";
             DataTable dataTable = lector.read(filePath, ",");
 
             // ==========================================================
@@ -100,7 +100,7 @@ public class Main {
             // ==========================================================
             CsvWriter writer = new CsvWriter();
             writer.write(tablaOrdenada_2,
-                "C:\\Users\\User\\IdeaProjects\\tp-develop\\src\\csvPrueva\\resultado_3.csv",
+                "src\\csvPrueva\\resultado_3.csv",
                 ",", false); // 'false' para no incluir encabezado, 'true' para incluirlo
 
             // ==========================================================
