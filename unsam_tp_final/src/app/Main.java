@@ -26,7 +26,7 @@ public class Main {
             // 1) LECTURA DE CSV: cargamos el archivo en una DataTable
             // ==========================================================
             TableReader lector = new CsvReader();
-            String filePath = "C:\\Users\\Julian\\OneDrive\\Desktop\\Algoritmos-1-Trabajo-Final-1\\unsam_tp_final\\src\\csvPrueva\\arbolado-publico-lineal-2017-2018.csv";
+            String filePath = "src/csvPrueva/arbolado-publico-lineal-2017-2018.csv";
             DataTable dataTable = lector.read(filePath, ",");
 
             // ==========================================================
@@ -100,7 +100,7 @@ public class Main {
             // ==========================================================
             CsvWriter writer = new CsvWriter();
             writer.write(tablaOrdenada_2,
-                "C:\\Users\\Julian\\OneDrive\\Desktop\\Algoritmos-1-Trabajo-Final-1\\unsam_tp_final\\src\\csvPrueva\\resultado_3.csv",
+                "src/csvPrueva/resultado_3.csv",
                 ",", false); // 'false' para no incluir encabezado, 'true' para incluirlo
 
             // ==========================================================
@@ -125,7 +125,7 @@ public class Main {
             // ==========================================================
             // 10) COPIA PROFUNDA: crear una copia de la tabla original
             // ==========================================================
-            DataTable copia = dataTable.deepCopy();
+            DataTable copia = dataTable.deepCopy(dataTable);
             // Cambiar un valor en la copia
             copia.getRows().get(0).setValue("altura_arbol", 100); 
 
@@ -144,7 +144,7 @@ public class Main {
             DataTable tablaB = dataTable.sample(5); // otras 5 filas al azar
 
             // 2) Concatenar ambas tablas
-            DataTable concatenada = DataTable.concat(tablaA, tablaB);
+            DataTable concatenada = tablaA.concat(tablaB);
 
             // 3) Visualizar el resultado
             System.out.println("TABLA CONCATENADA:");

@@ -1,7 +1,4 @@
 package Principal.table;
-
-import java.util.ArrayList;
-
 import utils.enums.DataType;
 
 public class Column {
