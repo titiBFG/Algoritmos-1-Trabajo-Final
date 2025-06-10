@@ -39,12 +39,32 @@ public class TableView {
             List<String> labels = table.getColumnLabels();
             int nCols = labels.size();
             int nRows = table.getRowCount();
+            int MAX_WIDTH = getConsoleWidth();
 
             // 1) Calculamos ancho máximo de cada columna basándonos en cabecera y valores
             int[] maxWidth = new int[nCols];
             // Inicialmente, ancho = longitud del nombre de la cabecera
             for (int c = 0; c < nCols; c++) {
                 maxWidth[c] = labels.get(c).length();
+            }
+
+            int totalWidth = 0;
+            for (int w : maxWidth) totalWidth += w + 3; // 3 = separadores y espacios
+            if (totalWidth > MAX_WIDTH) {
+                // Reducir proporcionalmente el ancho de columnas más anchas
+                int extra = totalWidth - MAX_WIDTH;
+                while (extra > 0) {
+                    int maxIdx = 0;
+                    for (int i = 1; i < nCols; i++) {
+                        if (maxWidth[i] > maxWidth[maxIdx]) maxIdx = i;
+                    }
+                    if (maxWidth[maxIdx] > 8) { // No reducir columnas muy chicas
+                        maxWidth[maxIdx]--;
+                        extra--;
+                    } else {
+                        break;
+                    }
+                }
             }
             // Recorremos los valores reales de las filas
             if (table instanceof DataTable) {
@@ -120,10 +140,13 @@ public class TableView {
         printAsGrid();
     }
 
-
-
-
-
-
-
+    private static int getConsoleWidth() {
+        String columns = System.getenv("COLUMNS");
+        if (columns != null) {
+            try {
+                return Integer.parseInt(columns);
+            } catch (NumberFormatException ignored) {}
+        }
+        return 120; // Valor por defecto si no se puede obtener
+    }
 }
