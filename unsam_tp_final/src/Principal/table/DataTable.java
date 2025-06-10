@@ -8,7 +8,7 @@ import utils.validation.NA;
 
 /**
  * Implementación de la interfaz Table que maneja datos tabulares con tipado fuerte.
- * Esta clase proporciona funcionalidades para manipular, filtrar y transformar datos tabulares entre otros metodos.
+ * Esta clase proporciona funcionalidades para manipular, filtrar y transformar datos tabulares.
  */
 public class DataTable implements Table {
     private final Map<Integer, Row> rows;
@@ -147,14 +147,170 @@ public class DataTable implements Table {
         int n = (int) Math.ceil(frac * this.getRowCount());
         return this.sample(n);
     }
+    /**
+     * === OPERACIONES BÁSICAS DE ACCESO ===
+     */
+    public void setAt(int rowIndex, String columnName, Object value) {
+        validateColumnName(columnName);
+        Row row = rows.get(rowIndex);
+        if (row == null) {
+            throw new IllegalArgumentException("Fila no encontrada: " + rowIndex);
+        }
 
+        DataType expectedType = columnTypes.get(columnName);
+        Object safeValue;
+
+        if (value.equals(NA.INSTANCE)) {
+            safeValue = NA.INSTANCE;
+        } else {
+            // Usamos el parser de DataType para convertir el valor
+            try {
+                safeValue = expectedType.parse(value.toString());
+            } catch (Exception e) {
+                throw new IllegalArgumentException(
+                        "El valor '" + value + "' no es válido para el tipo " + expectedType);
+            }
+        }
+
+        row.setValue(columnName, safeValue);
+    }
+    /**
+     * Añade una nueva columna.
+     * @param columnName Nombre de la nueva columna
+     * @param type Tipo de datos de la nueva columna
+     * @param values Lista de valores (debe coincidir con el número de filas)
+     * @return Nueva DataTable con la columna añadida
+     * @throws IllegalArgumentException si el tamaño no coincide o el nombre ya existe
+     */
+    public DataTable addColumn(String columnName, DataType type, List<Object> values) {
+        // Validaciones
+        if (columnName == null || type == null || values == null) {
+            throw new NullPointerException("Ningún parámetro puede ser null");
+        }
+        if (values.size() != rows.size()) {
+            throw new IllegalArgumentException(
+                    "El número de valores (" + values.size() +
+                            ") no coincide con el número de filas (" + rows.size() + ")");
+        }
+        if (columnTypes.containsKey(columnName)) {
+            throw new IllegalArgumentException("La columna " + columnName + " ya existe");
+        }
+
+        // Crear nueva estructura de columnas
+        List<Column> newColumns = new ArrayList<>(this.columns);
+        newColumns.add(new Column(columnName, type));
+
+        // Crear nuevos tipos de columna
+        Map<String, DataType> newColumnTypes = new LinkedHashMap<>(this.columnTypes);
+        newColumnTypes.put(columnName, type);
+
+        Map<Integer, Row> newRows = new LinkedHashMap<>();
+        int valueIndex = 0;
+
+        for (Map.Entry<Integer, Row> entry : rows.entrySet()) {
+            int rowIndex = entry.getKey();
+            Row oldRow = entry.getValue();
+
+            List<Object> newValues = new ArrayList<>(oldRow.getValues());
+            Object rawValue = values.get(valueIndex++);
+            Object value;
+
+            if (rawValue.equals(NA.INSTANCE)) {
+                value = NA.INSTANCE;
+            } else {
+                try {
+                    value = type.parse(rawValue.toString());
+                } catch (Exception e) {
+                    throw new IllegalArgumentException(
+                            "Valor inválido en posición " + (valueIndex-1) +
+                                    " para tipo " + type + ": " + rawValue);
+                }
+            }
+
+            newValues.add(value);
+            List<String> newLabels = new ArrayList<>(oldRow.getColumnLabels());
+            newLabels.add(columnName);
+
+            newRows.put(rowIndex, new Row(rowIndex, newValues, newLabels));
+        }
+
+        return new DataTable(newRows, newColumns, newColumnTypes);
+    }
+    /**
+     * Elimina una fila por su índice .
+     * @param rowIndex Índice de la fila a eliminar
+     * @return Nueva DataTable sin la fila especificada
+     * @throws IllegalArgumentException si la fila no existe
+     */
+    public DataTable dropRow(int rowIndex) {
+        if (!rows.containsKey(rowIndex)) {
+            throw new IllegalArgumentException("Fila no encontrada: " + rowIndex);
+        }
+
+        // Crear nuevo mapa de filas sin la especificada
+        Map<Integer, Row> newRows = new LinkedHashMap<>();
+        for (Map.Entry<Integer, Row> entry : rows.entrySet()) {
+            if (entry.getKey() != rowIndex) {
+                newRows.put(entry.getKey(), new Row(entry.getValue()));
+            }
+        }
+
+        return new DataTable(newRows, this.columns, this.columnTypes);
+    }
+    /**
+     * Elimina una columna de la tabla, manteniendo todas las filas pero sin los valores de la columna especificada.
+     * @param columnName Nombre de la columna a eliminar
+     * @return Nueva DataTable sin la columna especificada
+     * @throws IllegalArgumentException si la columna no existe
+     * @throws NullPointerException si columnName es null
+     */
+    public DataTable dropColumn(String columnName) {
+        Objects.requireNonNull(columnName, "La columna tiene que tener un nombre");
+        validateColumnName(columnName);
+
+        // 1. Crear nueva lista de columnas (excluyendo la que se elimina)
+        List<Column> newColumns = this.columns.stream()
+                .filter(col -> !col.getLabel().equals(columnName))
+                .map(Column::new) // Usar constructor de copia
+                .collect(Collectors.toList());
+
+        // 2. Crear nuevos tipos de columna
+        Map<String, DataType> newColumnTypes = new LinkedHashMap<>(this.columnTypes);
+        newColumnTypes.remove(columnName);
+
+        // 3. Reconstruir filas excluyendo la columna eliminada
+        Map<Integer, Row> newRows = new LinkedHashMap<>();
+
+        for (Map.Entry<Integer, Row> entry : this.rows.entrySet()) {
+            int rowIndex = entry.getKey();
+            Row oldRow = entry.getValue();
+
+            List<Object> newValues = new ArrayList<>();
+            List<String> newLabels = new ArrayList<>();
+
+            // Filtrar valores y etiquetas
+            for (int i = 0; i < oldRow.getColumnLabels().size(); i++) {
+                String currentLabel = oldRow.getColumnLabels().get(i);
+                if (!currentLabel.equals(columnName)) {
+                    newLabels.add(currentLabel);
+                    Object value = oldRow.getValues().get(i);
+                    // Preservar NA.INSTANCE si existe
+                    newValues.add(value instanceof NA ? NA.INSTANCE : value);
+                }
+            }
+
+            newRows.put(rowIndex, new Row(rowIndex, newValues, newLabels));
+        }
+
+        return new DataTable(newRows, newColumns, newColumnTypes);
+    }
     /**
      * Obtiene las primeras n filas de la tabla.
      * @param n Número de filas a obtener
      * @return Nueva DataTable con las primeras n filas
      * @throws IllegalArgumentException si n es negativo
      */
-    public DataTable head(int n) {
+    public void head(int n) {
         if (n < 0) {
             throw new IllegalArgumentException("El número de filas no puede ser negativo");
         }
@@ -165,7 +321,9 @@ public class DataTable implements Table {
             firstRows.put(entry.getKey(), entry.getValue());
             count++;
         }
-        return new DataTable(firstRows, columns, columnTypes);
+        DataTable t = new DataTable(firstRows, columns, columnTypes);
+        TableView v = new TableView(t);
+        v.printAllRows();
     }
 
     /**
@@ -174,7 +332,7 @@ public class DataTable implements Table {
      * @return Nueva DataTable con las últimas n filas
      * @throws IllegalArgumentException si n es negativo
      */
-    public DataTable tail(int n) {
+    public void tail(int n) {
         if (n < 0) {
             throw new IllegalArgumentException("El número de filas no puede ser negativo");
         }
@@ -184,7 +342,33 @@ public class DataTable implements Table {
         for (int i = start; i < keys.size(); i++) {
             lastRows.put(keys.get(i), rows.get(keys.get(i)));
         }
-        return new DataTable(lastRows, columns, columnTypes);
+        DataTable t = new DataTable(lastRows, columns, columnTypes);
+        TableView v = new TableView(t);
+        v.printAllRows();
+    }
+    /**
+     * Muestra las filas desde un indice hasta otro
+     * Si los índices son inválidos, lanza excepción.
+     */
+    public void slice(int indice1, int indice2) {
+        if (indice1 < 0 || indice2 > rows.size() || indice1 > indice2) {
+            throw new IllegalArgumentException("Índices fuera de rango o mal ordenados");
+        }
+
+        LinkedHashMap<Integer, Row> slicedRows = new LinkedHashMap<>();
+        int count = 0;
+
+        for (Map.Entry<Integer, Row> entry : rows.entrySet()) {
+            if (count >= indice1 && count < indice2) {
+                slicedRows.put(entry.getKey(), entry.getValue());
+            }
+            count++;
+            if (count >= indice2) break;
+        }
+
+        DataTable t = new DataTable(slicedRows, columns, columnTypes);
+        TableView vista = new TableView(t);
+        vista.printAllRows();  // o printProlijo()
     }
 
     /**
