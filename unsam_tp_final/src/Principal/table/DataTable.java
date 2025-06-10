@@ -8,7 +8,7 @@ import utils.validation.NA;
 
 /**
  * Implementación de la interfaz Table que maneja datos tabulares con tipado fuerte.
- * Esta clase proporciona funcionalidades para manipular, filtrar y transformar datos tabulares.
+ * Esta clase proporciona funcionalidades para manipular, filtrar y transformar datos tabulares entre otros metodos.
  */
 public class DataTable implements Table {
     private final Map<Integer, Row> rows;

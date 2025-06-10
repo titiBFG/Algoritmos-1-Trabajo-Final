@@ -1,4 +1,6 @@
 package Principal.table;
+import java.util.Objects;
+
 import utils.enums.DataType;
 
 public class Column {
@@ -20,7 +22,8 @@ public class Column {
     }
     // Un constructor de copia que cree una nueva columna a partir de otra.
     public Column(Column other) {
-        this.label = other.label;
+        this.label = Objects.requireNonNull(other.label);
+        this.type = Objects.requireNonNull(other.type);
     }
 
 }
