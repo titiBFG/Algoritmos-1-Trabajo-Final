@@ -310,20 +310,17 @@ public class DataTable implements Table {
      * @return Nueva DataTable con las primeras n filas
      * @throws IllegalArgumentException si n es negativo
      */
-    public void head(int n) {
+    public DataTable head(int n) {
         if (n < 0) {
             throw new IllegalArgumentException("El número de filas no puede ser negativo");
         }
         LinkedHashMap<Integer, Row> firstRows = new LinkedHashMap<>();
         int count = 0;
-        for (Map.Entry<Integer, Row> entry : rows.entrySet()) {
-            if (count >= n) break;
+        for (var entry : rows.entrySet()) {
+            if (count++ >= n) break;
             firstRows.put(entry.getKey(), entry.getValue());
-            count++;
         }
-        DataTable t = new DataTable(firstRows, columns, columnTypes);
-        TableView v = new TableView(t);
-        v.printAllRows();
+        return new DataTable(firstRows, columns, columnTypes);
     }
 
     /**
@@ -332,19 +329,18 @@ public class DataTable implements Table {
      * @return Nueva DataTable con las últimas n filas
      * @throws IllegalArgumentException si n es negativo
      */
-    public void tail(int n) {
+    public DataTable tail(int n) {
         if (n < 0) {
             throw new IllegalArgumentException("El número de filas no puede ser negativo");
         }
-        LinkedHashMap<Integer, Row> lastRows = new LinkedHashMap<>();
         List<Integer> keys = new ArrayList<>(rows.keySet());
         int start = Math.max(0, keys.size() - n);
+        LinkedHashMap<Integer, Row> lastRows = new LinkedHashMap<>();
         for (int i = start; i < keys.size(); i++) {
-            lastRows.put(keys.get(i), rows.get(keys.get(i)));
+            Integer idx = keys.get(i);
+            lastRows.put(idx, rows.get(idx));
         }
-        DataTable t = new DataTable(lastRows, columns, columnTypes);
-        TableView v = new TableView(t);
-        v.printAllRows();
+        return new DataTable(lastRows, columns, columnTypes);
     }
     /**
      * Muestra las filas desde un indice hasta otro
