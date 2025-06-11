@@ -310,17 +310,20 @@ public class DataTable implements Table {
      * @return Nueva DataTable con las primeras n filas
      * @throws IllegalArgumentException si n es negativo
      */
-    public DataTable head(int n) {
+    public void head(int n) {
         if (n < 0) {
             throw new IllegalArgumentException("El número de filas no puede ser negativo");
         }
         LinkedHashMap<Integer, Row> firstRows = new LinkedHashMap<>();
         int count = 0;
-        for (var entry : rows.entrySet()) {
-            if (count++ >= n) break;
+        for (Map.Entry<Integer, Row> entry : rows.entrySet()) {
+            if (count >= n) break;
             firstRows.put(entry.getKey(), entry.getValue());
+            count++;
         }
-        return new DataTable(firstRows, columns, columnTypes);
+        DataTable t = new DataTable(firstRows, columns, columnTypes);
+        TableView v = new TableView(t);
+        v.printAllRows();
     }
 
     /**
@@ -329,18 +332,19 @@ public class DataTable implements Table {
      * @return Nueva DataTable con las últimas n filas
      * @throws IllegalArgumentException si n es negativo
      */
-    public DataTable tail(int n) {
+    public void tail(int n) {
         if (n < 0) {
             throw new IllegalArgumentException("El número de filas no puede ser negativo");
         }
+        LinkedHashMap<Integer, Row> lastRows = new LinkedHashMap<>();
         List<Integer> keys = new ArrayList<>(rows.keySet());
         int start = Math.max(0, keys.size() - n);
-        LinkedHashMap<Integer, Row> lastRows = new LinkedHashMap<>();
         for (int i = start; i < keys.size(); i++) {
-            Integer idx = keys.get(i);
-            lastRows.put(idx, rows.get(idx));
+            lastRows.put(keys.get(i), rows.get(keys.get(i)));
         }
-        return new DataTable(lastRows, columns, columnTypes);
+        DataTable t = new DataTable(lastRows, columns, columnTypes);
+        TableView v = new TableView(t);
+        v.printAllRows();
     }
     /**
      * Muestra las filas desde un indice hasta otro
@@ -580,7 +584,7 @@ public class DataTable implements Table {
     }
 
     /** 
-     * Intenta convertir `value` al tipo `dt`, o lanza IllegalArgumentException.
+     * Intenta convertir value al tipo dt, o lanza IllegalArgumentException.
      */
     private Object castToType(Object value, DataType dt) {
         switch (dt) {

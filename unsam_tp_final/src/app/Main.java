@@ -35,7 +35,7 @@ public class Main {
             // ==========================================================
             // 2) VISUALIZACIÓN: mostramos resumen, filas y grid de la tabla original
             // ==========================================================
-            timer.start();
+            /*timer.start();
             TableView view = new TableView(dataTable);
             view.printProlijo();
             // Muestra las primeras 5 filas
@@ -43,13 +43,13 @@ public class Main {
             System.out.println("head 5");
             tableView.printAllRows();
             //muestra las ultimas 5 filas
-
-            TableView tableView2 = new TableView(dataTable.tail(5));
+            */
+            /*TableView tableView2 = new TableView(dataTable.tail(5));
             System.out.println("tail 5");
             tableView2.printAllRows();
             timer.stop();
             System.out.println("Tiempo de visualización: " + timer.getFormattedElapsedTime());
-            // ==========================================================
+            */// ==========================================================
             // 3) FILTRO SIMPLE: árboles con altura_arbol > 10
             // ==========================================================
             timer.start();
