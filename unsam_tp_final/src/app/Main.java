@@ -35,7 +35,7 @@ public class Main {
             System.out.println("=".repeat(80));
             timer.start();
             TableReader lector = new CsvReader();
-            String filePath = "C:\\Users\\Julian\\OneDrive\\Desktop\\Algoritmos-1-Trabajo-Final-1\\unsam_tp_final\\src\\csvPrueva\\arbolado-publico-lineal-2017-2018.csv";
+            String filePath = "src\\csvPrueva\\arbolado-publico-lineal-2017-2018.csv";
             DataTable dataTable = lector.read(filePath, ",");
             timer.stop();
             System.out.println("Tiempo de lectura del CSV: " + timer.getFormattedElapsedTime());
@@ -87,7 +87,7 @@ public class Main {
             System.out.println("=".repeat(80));
             CsvWriter writer = new CsvWriter();
             DataTable head5 = dataTable.sample(5);
-            writer.write(head5, "C:\\Users\\Julian\\OneDrive\\Desktop\\Algoritmos-1-Trabajo-Final-1\\unsam_tp_final\\src\\csvPrueva.csv", ",", true);
+            writer.write(head5, "src\\csvPrueva\\ejemplo_prueba.csv", ",", true);
             System.out.println("Archivo 'ejemplo_export.csv' generado con 5 filas.");
             timer.stop();
             System.out.println("Tiempo de exportación a CSV: " + timer.getFormattedElapsedTime());
