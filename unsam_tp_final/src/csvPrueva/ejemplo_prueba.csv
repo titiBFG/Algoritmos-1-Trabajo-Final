@@ -1,6 +1,6 @@
 long,lat,nro_registro,tipo_activ,comuna,manzana,calle_nombre,calle_altura,calle_chapa,direccion_normalizada,ubicacion,nombre_cientifico,ancho_acera,estado_plantera,ubicacion_plantera,nivel_plantera,diametro_altura_pecho,altura_arbol
--58.3791031622524,-34.5919390993515,30904,Lineal,1,NA,Arroyo,800.0,848.0,ARROYO 848,Exacta,Fraxinus pennsylvanica,4,Ocupada,Regular,A nivel,7.0,6.0
--58.3810432055025,-34.5915839520842,31344,Lineal,1,NA,Arroyo,900.0,970.0,ARROYO 970,Exacta,Fraxinus pennsylvanica,3.5,Ocupada,Regular,A nivel,29.0,15.0
--58.382916187983504,-34.593717780491,32210,Lineal,1,NA,Cerrito,1200.0,1240.0,CERRITO 1240,Exacta,Fraxinus pennsylvanica,10,Ocupada,Fuera de línea,A nivel,50.0,12.0
--58.379839167529,-34.592820500504104,32142,Lineal,1,NA,Juncal,800.0,885.0,JUNCAL 885,Exacta,Tilia x moltkei,2.8,Ocupada,Regular,A nivel,25.0,12.0
--58.379802865373605,-34.5914753259887,32152,Lineal,1,NA,Arroyo,800.0,882.0,ARROYO 882,Exacta,Fraxinus pennsylvanica,4,Ocupada,Regular,A nivel,10.0,9.0
+-58.3807095655605,-34.5915479981732,31337,Lineal,1,NA,Arroyo,900.0,932.0,ARROYO 932,LA,Jacaranda mimosifolia,NA,Ocupada,Regular,A nivel,13.0,8.0
+-58.37916495228001,-34.5918629234031,31415,Lineal,1,NA,Arroyo,800.0,852.0,ARROYO 852,Exacta,Fraxinus pennsylvanica,4,Ocupada,Regular,A nivel,23.0,18.0
+-58.3815037852122,-34.5917192301832,31406,Lineal,1,NA,Pellegrini Carlos,1300.0,1391.0,"PELLEGRINI,CARLOS 1391",LA,No identificado,4.5,Ocupada,Regular,Elevada,50.0
+-58.3914306239641,-34.6002913412702,31458,Lineal,1,NA,Rodriguez Peña,700.0,751.0,RODRIGUEZ PEÑA 751,Exacta,Fraxinus pennsylvanica,2.6,Ocupada,Regular,Bajo nivel,18.0,9.0
+-58.3807095655605,-34.5915479981732,31440,Lineal,1,NA,Arroyo,900.0,932.0,ARROYO 932,LA,Fraxinus pennsylvanica,NA,Ocupada,Regular,A nivel,38.0,13.0
