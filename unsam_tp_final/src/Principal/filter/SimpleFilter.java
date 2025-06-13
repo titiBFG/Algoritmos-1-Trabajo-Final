@@ -26,7 +26,6 @@ public class SimpleFilter implements Filter {
     public boolean apply(Row row){
         Object value = row.getValue(columnName);
 
-        // --- Parche para comparar numéricos ---
         if (value instanceof Number && compareValue instanceof Number) {
             double v1 = ((Number)value).doubleValue();
             double v2 = ((Number)compareValue).doubleValue();
@@ -40,7 +39,6 @@ public class SimpleFilter implements Filter {
                 default: throw new IllegalArgumentException("Operador no soportado: " + operator);
             }
         }
-        // --- FIN PARCHE ---
 
         switch (operator){
             case EQ:
