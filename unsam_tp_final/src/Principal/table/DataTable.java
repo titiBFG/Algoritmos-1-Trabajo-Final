@@ -1,6 +1,7 @@
 package Principal.table;
 
 import java.util.*;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 import Principal.filter.Filter;
 import utils.enums.DataType;
@@ -236,6 +237,41 @@ public class DataTable implements Table {
 
         return new DataTable(newRows, newColumns, newColumnTypes);
     }
+    /**
+     * Añade una nueva columna como copia transformada de una columna existente
+     * @param sourceColumnName Nombre de la columna origen
+     * @param newColumnName Nombre de la nueva columna
+     * @param valueTransformer Función para transformar los valores (puede ser null para copia directa)
+     * @return Nueva DataTable con la columna añadida
+     * @throws IllegalArgumentException si la columna origen no existe
+     */
+    public DataTable addColumnFromExisting(
+            String sourceColumnName,
+            String newColumnName,
+            Function<Object, Object> valueTransformer
+    ) {
+        // Validar que la columna origen existe
+        validateColumnName(sourceColumnName);
+
+        // Obtener tipo de dato de la columna origen
+        DataType sourceType = this.columnTypes.get(sourceColumnName);
+
+        // Preparar lista de valores transformados
+        List<Object> newValues = new ArrayList<>();
+
+        // Copiar/transformar valores de cada fila
+        for (Row row : this.rows.values()) {
+            Object originalValue = row.getValue(sourceColumnName);
+            Object newValue = (valueTransformer != null) ?
+                    valueTransformer.apply(originalValue) :
+                    originalValue;
+            newValues.add(newValue);
+        }
+
+        // Usar el método addColumn existente
+        return this.addColumn(newColumnName, sourceType, newValues);
+    }
+
     /**
      * Elimina una fila por su índice .
      * @param rowIndex Índice de la fila a eliminar
