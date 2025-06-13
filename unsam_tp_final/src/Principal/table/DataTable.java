@@ -252,7 +252,7 @@ public class DataTable implements Table {
     ) {
         // Validar que la columna origen existe
         validateColumnName(sourceColumnName);
-
+          
         // Obtener tipo de dato de la columna origen
         DataType sourceType = this.columnTypes.get(sourceColumnName);
 

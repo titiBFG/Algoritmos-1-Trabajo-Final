@@ -121,10 +121,14 @@ public class Main {
             System.out.println("Valor modificado en copia (fila 0, columna '" + columnaEjemplo + "'): " + copia.getRows().get(0).getValue(columnaEjemplo));
             List<Object> nuevaCol = Arrays.asList("A", "B", "C", "D", "E");
             DataTable conColNueva = head5.addColumn("nueva_col", utils.enums.DataType.STRING, nuevaCol);
-            System.out.println("Se agrega una columna llamada 'nueva_col':");
+            System.out.println("\n");
+            System.out.println("\nSe agrega una columna llamada 'nueva_col':");
+            System.out.println("\n");
             new TableView(conColNueva).printAsGrid();
+            System.out.println("\n");
             DataTable sinCol = conColNueva.dropColumn("nueva_col");
-            System.out.println("Se elimina la columna 'nueva_col':");
+            System.out.println("\nSe elimina la columna 'nueva_col':");
+            System.out.println("\n");
             new TableView(sinCol).printAsGrid();
             try {
                 // Buscar el primer índice realmente presente en la tabla para eliminar esa fila
@@ -302,7 +306,7 @@ public class Main {
             System.out.println(filaOriginal);
 
             // Modificamos el valor
-            Object nuevoValor = "NUEVO_VALOR_PRUEBA";
+            Object nuevoValor = "255.44";
             System.out.println("\nModificando celda [" + filaAModificar + ", '" +
                     columnaAModificar + "'] de '" + valorOriginal +
                     "' a '" + nuevoValor + "'");
