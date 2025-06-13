@@ -136,6 +136,29 @@ public class Main {
             } catch (IllegalArgumentException ex) {
                 System.out.println("No se pudo eliminar la fila: " + ex.getMessage());
             }
+            // ==========================================================
+            // NUEVOS CASOS DE USO PARA addColumnFromExisting
+            // ==========================================================
+            System.out.println("\nOperaciones con addColumnFromExisting:");
+
+            // 1. Copia simple de columna
+            DataTable copiaColumna = dataTable.addColumnFromExisting(
+                    "altura_arbol",
+                    "altura_copia",
+                    null // Sin transformación
+            );
+            System.out.println("\n1) Copia simple de columna 'altura_arbol' a 'altura_copia':");
+            new TableView(copiaColumna.sample(3)).printAsGrid();
+
+            // 2. Copia con transformación (cm a metros)
+            DataTable conversionColumna = dataTable.addColumnFromExisting(
+                    "altura_arbol",
+                    "altura_metros",
+                    valor -> valor instanceof Number ? ((Number)valor).doubleValue() / 100 : valor
+            );
+            System.out.println("\n2) Conversión de 'altura_arbol' (cm) a 'altura_metros' (m):");
+            new TableView(conversionColumna.sample(3)).printAsGrid();
+
             timer.stop();
             System.out.println("Tiempo de generación y modificación: " + timer.getFormattedElapsedTime());
 
@@ -260,9 +283,58 @@ public class Main {
             timer.stop();
             System.out.println("Tiempo de acceso a NA: " + timer.getFormattedElapsedTime());
 
+            // ==========================================================
+            // 14) MODIFICACIÓN DE CELDAS (setAt)
+            // ==========================================================
+            timer.start();
+            System.out.println("\n" + "=".repeat(80));
+            System.out.println("14) MODIFICACIÓN DE CELDAS (setAt)");
+            System.out.println("=".repeat(80));
+
+            // Seleccionamos una fila y columna para modificar
+            int filaAModificar = 0;
+            String columnaAModificar = dataTable.getColumnLabels().get(0);
+            Object valorOriginal = dataTable.getValue(columnaAModificar, filaAModificar);
+
+            // Mostramos la fila completa antes de la modificación
+            System.out.println("\nFila ORIGINAL (antes de modificar):");
+            Row filaOriginal = dataTable.getRow(filaAModificar);
+            System.out.println(filaOriginal);
+
+            // Modificamos el valor
+            Object nuevoValor = "NUEVO_VALOR_PRUEBA";
+            System.out.println("\nModificando celda [" + filaAModificar + ", '" +
+                    columnaAModificar + "'] de '" + valorOriginal +
+                    "' a '" + nuevoValor + "'");
+            dataTable.setAt(filaAModificar, columnaAModificar, nuevoValor);
+
+            // Mostramos la fila completa después de la modificación
+            System.out.println("\nFila MODIFICADA:");
+            Row filaModificada = dataTable.getRow(filaAModificar);
+            System.out.println(filaModificada);
+
+            // Volvemos a poner el valor original
+            System.out.println("\nRestaurando valor original...");
+            dataTable.setAt(filaAModificar, columnaAModificar, valorOriginal);
+
+            // Mostramos la fila completa después de restaurar
+            System.out.println("\nFila RESTAURADA (debe ser igual a la original):");
+            Row filaRestaurada = dataTable.getRow(filaAModificar);
+            System.out.println(filaRestaurada);
+
+            // Verificación
+            if (filaOriginal.equals(filaRestaurada)) {
+                System.out.println("\nLa fila restaurada es idéntica a la original.");
+            } else {
+                System.out.println("\nLa fila restaurada no coincide con la original.");
+            }
+
+            timer.stop();
+            System.out.println("\nTiempo de modificación y restauración de celda: " + timer.getFormattedElapsedTime());
             System.out.println("\n" + "=".repeat(80));
             System.out.println("FIN DEL DEMO");
             System.out.println("=".repeat(80) + "\n");
+
 
         } catch (Exception e) {
             System.out.println("\n" + "=".repeat(80));
@@ -272,6 +344,7 @@ public class Main {
             e.printStackTrace(System.out);
             System.out.println("=".repeat(80));
         }
+
     }
 }
 
