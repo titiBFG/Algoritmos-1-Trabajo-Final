@@ -1,0 +1,6 @@
+long,lat,nro_registro,tipo_activ,comuna,manzana,calle_nombre,calle_altura,calle_chapa,direccion_normalizada,ubicacion,nombre_cientifico,ancho_acera,estado_plantera,ubicacion_plantera,nivel_plantera,diametro_altura_pecho,altura_arbol
+-58.3807095655605,-34.5915479981732,31336,Lineal,1,NA,Arroyo,900.0,932.0,ARROYO 932,LD,Fraxinus pennsylvanica,NA,Ocupada,Regular,A nivel,9.0,29.0
+"-58.381514636401704,-34.591949524651696,31457,Lineal,1,NA,Pellegrini Carlos,1300.0,1371.0,""PELLEGRINI,CARLOS 1371"",LD,Phoenix roebelenii,7,Ocupada,Regular,Elevada,15.0
+-58.379802865373605,-34.5914753259887,32151,Lineal,1,NA,Arroyo,800.0,880.0,ARROYO 880,Exacta,Fraxinus pennsylvanica,4,Ocupada,Regular,A nivel,15.0,16.0
+-58.3785628928503,-34.5949023233017,26779,Lineal,1,NA,Esmeralda,1000.0,1120.0,ESMERALDA 1120,NA,Tipuana tipu,5.5,Ocupada,Regular,A nivel,88.0,34.0
+"-58.3815136158107,-34.591927864854306,31434,Lineal,1,NA,Pellegrini Carlos,1300.0,1373.0,""PELLEGRINI,CARLOS 1373"",LA,Washingtonia filifera,4.5,Sobreocupada,Regular,Elevada,45.0
