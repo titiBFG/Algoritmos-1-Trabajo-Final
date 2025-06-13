@@ -1,6 +1,7 @@
 package app;
 
 import io.interfaces.TableReader;
+import utils.enums.DataType;
 import utils.enums.LogicalOperator;
 import utils.enums.Operator;
 import io.CsvReader;
@@ -12,9 +13,10 @@ import Principal.table.DataTable;
 import Principal.table.Table;
 import Principal.table.TableView;
 import Principal.table.Row;
-import Principal.table.Column;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -335,10 +337,67 @@ public class Main {
 
             timer.stop();
             System.out.println("\nTiempo de modificación y restauración de celda: " + timer.getFormattedElapsedTime());
+
+            // ==========================================================
+            // 15) Prueba de Fuente de datos from2D y fromIterable
+            // ========================================================== 
+            timer.start();
+            // Creamos un DataTable "helper" vacío solo para invocar los métodos
+            DataTable helper = new DataTable(
+            new LinkedHashMap<>(), 
+            new ArrayList<>(), 
+            new LinkedHashMap<>()
+            );
+
+            // ---- Prueba from2D ----
+            Object[][] datos2D = {
+                { "Pedrito", 30,  true  },
+                { "Pablito",   25,  false },
+                { "Rosa", 28,  true  }
+            };
+            String[] labels2D = { "nombre", "edad", "activo" };
+            DataType[] types2D = {
+                DataType.STRING,
+                DataType.INTEGER,
+                DataType.BOOLEAN
+            };
+
+            DataTable tabla2D = helper.from2D(datos2D, labels2D, types2D);
+            DataTable tabla2Dfromexisting = tabla2D.addColumnFromExisting("edad", "edad + 1",
+                valor -> {
+                    if (valor instanceof Number) {
+                        return ((Number) valor).intValue() + 1;
+                    }
+                    return valor; // Si no es un número, devolver el valor original
+                }
+            );
+            System.out.println("\n=== Tabla construida desde matriz 2D ===");
+            new TableView(tabla2D).printProlijo();
+            System.out.println("\n=== Tabla construida desde matriz 2D con columna nueva ===");
+            new TableView(tabla2Dfromexisting).printAsGrid();
+
+            // ---- Prueba fromIterable ----
+            List<List<Object>> datosIter = Arrays.asList(
+                Arrays.asList("X", 1, false),
+                Arrays.asList("Y", 2, true ),
+                Arrays.asList("Z", 3, false)
+            );
+            List<String> labelsIter = Arrays.asList("col1", "col2", "col3");
+            List<DataType> typesIter = Arrays.asList(
+                DataType.STRING,
+                DataType.INTEGER,
+                DataType.BOOLEAN
+            );
+
+            // Podemos reutilizar 'helper' o 'tabla2D' ya creado; el método no usa estado anterior.
+            DataTable tablaIter = helper.fromIterable(datosIter, labelsIter, typesIter);
+            System.out.println("\n=== Tabla construida desde Iterable ===");
+            new TableView(tablaIter).printProlijo();
+            timer.stop();
+            System.out.println("Tiempo de creación de tablas desde 2D e Iterable: " + timer.getFormattedElapsedTime());
             System.out.println("\n" + "=".repeat(80));
             System.out.println("FIN DEL DEMO");
             System.out.println("=".repeat(80) + "\n");
-
 
         } catch (Exception e) {
             System.out.println("\n" + "=".repeat(80));
@@ -349,6 +408,8 @@ public class Main {
             System.out.println("=".repeat(80));
         }
 
+            
     }
+    
 }
 
