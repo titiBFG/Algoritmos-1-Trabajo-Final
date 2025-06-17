@@ -26,6 +26,58 @@ https://github.com/user-attachments/assets/0b77cac1-4e76-4b41-84ef-aa689796ab3e
 
 ![image](https://github.com/user-attachments/assets/5560684f-bb8c-423a-bd72-0dc48001c033)
 
+## Funcionalidades Principales
+
+**Información básica:** filas, columnas, etiquetas, tipos (ENTERO, REAL, BOOLEANO, CADENA, NA).
+
+**Acceso indexado:** por etiqueta y posición.
+
+**Carga/descarga CSV** con delimitador configurable.
+
+**Visualización en consola** con límites de filas/columnas.
+
+**Generación de tablas:** desde CSV, copias profundas, arrays y listas de Java.
+
+**Modificación:** set de celdas, insertar/eliminar filas y columnas.
+
+**Selección (slicing):** head(), tail(), vistas parciales.
+
+**Filtrado:** operadores comparativos y lógicos con combinaciones.
+
+**Copia independiente y concatenación** de tablas.
+
+**Ordenamiento** por una o más columnas.
+
+**Imputación de valores faltantes (NA).**
+
+**Muestreo aleatorio** según porcentaje.
+
+## Uso Básico
+
+// Cargar CSV DataTable tabla = CsvReader.read("datos.csv", ",", true); // Mostrar primeras 5 filas System.out.println(tabla.head(5)); // Filtrar DataTable filtrada = tabla.filter(new And( new Gt("edad", 18), new Eq("activo", true) )); // Ordenar por columna DataTable ordenada = filtrada.sort(Arrays.asList("apellido", "nombre"));
+
+Diseño y Arquitectura
+
+Diagrama de Clases General: DataTable, Column, Row, Filter, CsvReader, CsvWriter, NA y enums de tipos y operadores.
+
+Diagrama de Secuencia: Operación de filtrado de tabla.
+
+Principios SOLID: Responsabilidad única en clases, inversión de dependencias para parsers y filtros.
+
+_Demostración_
+
+_Durante la defensa se muestra en vivo:_
+
+_Debug paso a paso en IDE para ilustrar el flujo interno._
+
+_Lecciones Aprendidas y Oportunidades de Mejora_
+
+_Mejorar la eficiencia de operaciones con técnicas de indexing y caching._
+
+_Añadir paralelización para cargas y agregaciones._
+
+_Extender soporte a nuevos tipos de datos y formatos (JSON, Parquet)._
+
 ## Mejoras pendientes
 - **Mejor visualización de las tablas:** Optimizar la presentación de tablas para facilitar la lectura y comprensión de los datos, utilizando mejores estilos o formatos.
 - **Implementación de selección:** Agregar funcionalidades que permitan seleccionar filas o elementos dentro de las tablas para realizar acciones específicas.
