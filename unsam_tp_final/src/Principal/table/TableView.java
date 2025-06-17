@@ -105,6 +105,69 @@ public class TableView {
         }
     }
 
+    // Sobrecarga para imprimir con columnas específicas
+    public void printAsGrid(List<String> columnas) {
+        final int MAX_ROWS = 10;
+
+        List<String> labels = columnas;
+        int colCount = labels.size();
+
+        // 1) Extraer y ordenar las entradas de filas
+        List<Map.Entry<Integer, Row>> entries = ((DataTable) table).getRows().entrySet().stream()
+            .sorted(Map.Entry.comparingByKey())
+            .collect(Collectors.toList());
+
+        int shownRows = Math.min(entries.size(), MAX_ROWS);
+        boolean rowEllipsis = entries.size() > MAX_ROWS;
+
+        // 2) Calcular ancho de cada columna
+        int[] colWidths = new int[colCount];
+        for (int c = 0; c < colCount; c++) {
+            colWidths[c] = labels.get(c).length();
+        }
+        for (int r = 0; r < shownRows; r++) {
+            Row row = entries.get(r).getValue();
+            for (int c = 0; c < colCount; c++) {
+                String val = String.valueOf(row.getValue(labels.get(c)));
+                colWidths[c] = Math.max(colWidths[c], val.length());
+            }
+        }
+
+        // 3) Imprimir header
+        System.out.print("|");
+        for (int c = 0; c < colCount; c++) {
+            System.out.printf(" %-" + colWidths[c] + "s |", labels.get(c));
+        }
+        System.out.println();
+
+        // 4) Imprimir separador
+        System.out.print("|");
+        for (int c = 0; c < colCount; c++) {
+            System.out.print(" " + "-".repeat(colWidths[c]) + " |");
+        }
+        System.out.println();
+
+        // 5) Imprimir filas
+        for (int r = 0; r < shownRows; r++) {
+            Row row = entries.get(r).getValue();
+            System.out.print("|");
+            for (int c = 0; c < colCount; c++) {
+                String val = String.valueOf(row.getValue(labels.get(c)));
+                System.out.printf(" %-" + colWidths[c] + "s |", val);
+            }
+            System.out.println();
+        }
+
+        // 6) Imprimir puntos suspensivos para filas extra
+        if (rowEllipsis) {
+            System.out.print("|");
+            for (int c = 0; c < colCount; c++) {
+                System.out.printf(" %-" + colWidths[c] + "s |", "...");
+            }
+            System.out.println();
+        }
+    }
+
     public void printProlijo() {
         printSummary();
         System.out.println();
