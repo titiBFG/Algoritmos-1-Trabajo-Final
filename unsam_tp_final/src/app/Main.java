@@ -126,18 +126,26 @@ public class Main {
             System.out.println("\n");
             System.out.println("\nSe agrega una columna llamada 'nueva_col':");
             System.out.println("\n");
-            new TableView(conColNueva).printAsGrid();
+            new TableView(conColNueva).printSummary();
+            System.out.println("\n");
+            new TableView(conColNueva).printAsGrid(List.of("nivel_plantera", "diametro_altura_pecho", "nueva_col"));
             System.out.println("\n");
             DataTable sinCol = conColNueva.dropColumn("nueva_col");
             System.out.println("\nSe elimina la columna 'nueva_col':");
             System.out.println("\n");
-            new TableView(sinCol).printAsGrid();
+            new TableView(sinCol).printSummary();
+            System.out.println("\n");
+            new TableView(sinCol).printAsGrid(List.of("nivel_plantera", "diametro_altura_pecho"));
+            System.out.println("\n");
             try {
                 // Buscar el primer índice realmente presente en la tabla para eliminar esa fila
                 Integer primerIndice = sinCol.getRows().keySet().stream().findFirst()
                         .orElseThrow(() -> new IllegalArgumentException("La tabla está vacía"));
                 DataTable sinFila = sinCol.dropRow(primerIndice);
                 System.out.println("Se elimina la fila con índice " + primerIndice + ":");
+                System.out.println("\n");
+                new TableView(sinFila).printSummary();
+                System.out.println("\n");
                 new TableView(sinFila).printAsGrid();
             } catch (IllegalArgumentException ex) {
                 System.out.println("No se pudo eliminar la fila: " + ex.getMessage());
@@ -154,7 +162,9 @@ public class Main {
                     null // Sin transformación
             );
             System.out.println("\n1) Copia simple de columna 'altura_arbol' a 'altura_copia':");
-            new TableView(copiaColumna.sample(3)).printAsGrid();
+            new TableView(copiaColumna.sample(3)).printSummary();
+            System.out.println("\n");
+            new TableView(copiaColumna.sample(3)).printAsGrid(List.of("altura_arbol", "altura_copia"));
 
             // 2. Copia con transformación (cm a metros)
             DataTable conversionColumna = dataTable.addColumnFromExisting(
@@ -163,7 +173,9 @@ public class Main {
                     valor -> valor instanceof Number ? ((Number)valor).doubleValue() / 100 : valor
             );
             System.out.println("\n2) Conversión de 'altura_arbol' (cm) a 'altura_metros' (m):");
-            new TableView(conversionColumna.sample(3)).printAsGrid();
+            new TableView(conversionColumna.sample(3)).printSummary();
+            System.out.println("\n");
+            new TableView(conversionColumna.sample(3)).printAsGrid(List.of("altura_arbol", "altura_metros"));
 
             timer.stop();
             System.out.println("Tiempo de generación y modificación: " + timer.getFormattedElapsedTime());
@@ -230,7 +242,7 @@ public class Main {
             List<String> columnas = Arrays.asList("altura_arbol");
             Table tablaOrdenada = sorter.sort(dataTable, columnas, true);
             System.out.println("Tabla ordenada por 'altura_arbol' ascendente (primeras 5 filas):");
-            new TableView(((DataTable)tablaOrdenada).sample(5)).printAsGrid();
+            ((DataTable)tablaOrdenada).head(5);
             timer.stop();
             System.out.println("Tiempo de ordenamiento: " + timer.getFormattedElapsedTime());
 
@@ -241,9 +253,12 @@ public class Main {
             System.out.println("\n" + "=".repeat(80));
             System.out.println("10) IMPUTACIÓN DE VALORES");
             System.out.println("=".repeat(80));
+            new TableView(dataTable).printAsGrid(List.of("ancho_acera", "altura_arbol", "nombre_cientifico"));
+            System.out.println("\n");
             DataTable imputada = dataTable.impute("ancho_acera", 1.5);
             System.out.println("Tabla con imputación de NA en 'ancho_acera' con 1.5 (primeras 5 filas):");
-            new TableView(imputada.sample(5)).printAsGrid();
+            System.out.println("\n");
+            new TableView(imputada).printAsGrid(List.of("ancho_acera", "altura_arbol", "nombre_cientifico"));
             timer.stop();
             System.out.println("Tiempo de imputación: " + timer.getFormattedElapsedTime());
 
@@ -280,22 +295,11 @@ public class Main {
             System.out.println("Tiempo de concatenación: " + timer.getFormattedElapsedTime());
 
             // ==========================================================
-            // 13) NA (VALOR FALTANTE)
+            // 13) MODIFICACIÓN DE CELDAS (setAt)
             // ==========================================================
             timer.start();
             System.out.println("\n" + "=".repeat(80));
-            System.out.println("13) VALOR FALTANTE (NA)");
-            System.out.println("=".repeat(80));
-            System.out.println("Primer fila, columna 'ancho_acera': " + dataTable.getRows().get(0).getValue("ancho_acera"));
-            timer.stop();
-            System.out.println("Tiempo de acceso a NA: " + timer.getFormattedElapsedTime());
-
-            // ==========================================================
-            // 14) MODIFICACIÓN DE CELDAS (setAt)
-            // ==========================================================
-            timer.start();
-            System.out.println("\n" + "=".repeat(80));
-            System.out.println("14) MODIFICACIÓN DE CELDAS (setAt)");
+            System.out.println("13) MODIFICACIÓN DE CELDAS (setAt)");
             System.out.println("=".repeat(80));
 
             // Seleccionamos una fila y columna para modificar
@@ -340,8 +344,12 @@ public class Main {
             System.out.println("\nTiempo de modificación y restauración de celda: " + timer.getFormattedElapsedTime());
 
             // ==========================================================
-            // 15) Prueba de Fuente de datos from2D y fromIterable
+            // 14) Prueba de Fuente de datos from2D y fromIterable
             // ========================================================== 
+            System.out.println("\n" + "=".repeat(80));
+            System.out.println("14) PRUEBA DE FUENTES DE DATOS (from2D y fromIterable)");
+            System.out.println("=".repeat(80));
+
             timer.start();
             // Creamos un DataTable "helper" vacío solo para invocar los métodos
             DataTable helper = new DataTable(
