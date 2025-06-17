@@ -295,22 +295,11 @@ public class Main {
             System.out.println("Tiempo de concatenación: " + timer.getFormattedElapsedTime());
 
             // ==========================================================
-            // 13) NA (VALOR FALTANTE)
+            // 13) MODIFICACIÓN DE CELDAS (setAt)
             // ==========================================================
             timer.start();
             System.out.println("\n" + "=".repeat(80));
-            System.out.println("13) VALOR FALTANTE (NA)");
-            System.out.println("=".repeat(80));
-            System.out.println("Primer fila, columna 'ancho_acera': " + dataTable.getRows().get(0).getValue("ancho_acera"));
-            timer.stop();
-            System.out.println("Tiempo de acceso a NA: " + timer.getFormattedElapsedTime());
-
-            // ==========================================================
-            // 14) MODIFICACIÓN DE CELDAS (setAt)
-            // ==========================================================
-            timer.start();
-            System.out.println("\n" + "=".repeat(80));
-            System.out.println("14) MODIFICACIÓN DE CELDAS (setAt)");
+            System.out.println("13) MODIFICACIÓN DE CELDAS (setAt)");
             System.out.println("=".repeat(80));
 
             // Seleccionamos una fila y columna para modificar
@@ -355,8 +344,12 @@ public class Main {
             System.out.println("\nTiempo de modificación y restauración de celda: " + timer.getFormattedElapsedTime());
 
             // ==========================================================
-            // 15) Prueba de Fuente de datos from2D y fromIterable
+            // 14) Prueba de Fuente de datos from2D y fromIterable
             // ========================================================== 
+            System.out.println("\n" + "=".repeat(80));
+            System.out.println("14) PRUEBA DE FUENTES DE DATOS (from2D y fromIterable)");
+            System.out.println("=".repeat(80));
+
             timer.start();
             // Creamos un DataTable "helper" vacío solo para invocar los métodos
             DataTable helper = new DataTable(
