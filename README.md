@@ -26,7 +26,7 @@ https://github.com/user-attachments/assets/0b77cac1-4e76-4b41-84ef-aa689796ab3e
 
 ![image](https://github.com/user-attachments/assets/5560684f-bb8c-423a-bd72-0dc48001c033)
 
-## Mejoras Pendientes
+## Mejoras pendientes
 - **Mejor visualización de las tablas:** Optimizar la presentación de tablas para facilitar la lectura y comprensión de los datos, utilizando mejores estilos o formatos.
 - **Implementación de selección:** Agregar funcionalidades que permitan seleccionar filas o elementos dentro de las tablas para realizar acciones específicas.
 - **Agrupamiento de datos:** Incorporar opciones para agrupar información según distintos criterios, facilitando el análisis de los datos presentados.
